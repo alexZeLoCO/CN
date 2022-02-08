@@ -1,3 +1,5 @@
+#lang racket
+
 ; Actualización del valor según Regula Falsi.
 ; Recibe la funcion y los dos extremos actuales.
 ; Retorna el siguiente x a operar.
@@ -22,9 +24,9 @@
 ; el número de iteraciones a realizar y el método de actualización (nextBisección ó nextFalsi).
 ; Retorna los x correspondientes de las iteraciones en forma de lista: (x1 x2 x3 ... xn)
 (define (findIter f a b iter next)
-  (cond [(zero? iter) ()]
-        [(positive? (* (f a) (f (next f a b)))) (cons (next f a b) (findIter f (next f a b) b (- iter 1) next))]
-        [else (cons (next f a b) (findIter f a (next f a b) (- iter 1) next))]
+  (cond [(zero? iter) ]
+        [(positive? (* (f a) (f (next f a b)))) (cons (cons (next f a b) (f (next f a b))) (findIter f (next f a b) b (- iter 1) next))]
+        [else (cons (cons (next f a b) (f (next f a b))) (findIter f a (next f a b) (- iter 1) next))]
         )
   )
 
@@ -34,9 +36,9 @@
 ; Retorna los x correspondientes de las iteraciones en forma de lista: (x1 x2 x3 ... xn)
 ; FIXME: No funciona con nextFalsi
 (define (findErr f a b err next)
-  (cond [(< (calcError a b) err) ()]
-        [(positive? (* (f a) (f (next f a b)))) (cons (next f a b) (findErr f (next f a b) b err next))]
-        [else (cons (next f a b) (findErr f a (next f a b) err next))]
+  (cond [(< (calcError a b) err) ]
+        [(positive? (* (f a) (f (next f a b)))) (cons (cons (next f a b) (f (next f a b))) (findErr f (next f a b) b err next))]
+        [else (cons (cons (next f a b) (f (next f a b))) (findErr f a (next f a b) err next))]
         )
   )
 
@@ -46,3 +48,5 @@
 (define (calcError a b)
   (/ (- b a) 2)
   )
+
+(provide (all-defined-out))
