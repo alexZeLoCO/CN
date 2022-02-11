@@ -34,7 +34,6 @@
 ; Recibe la funcion a evaluar, los dos extremos de un intervalo en el que se sepa hay una única raíz,
 ; el error máximo a cometer y el método de actualización (nextBisección ó nextFalsi).
 ; Retorna los x correspondientes de las iteraciones en forma de lista: (x1 x2 x3 ... xn)
-; FIXME: No funciona con nextFalsi
 (define (findErr f a b err next)
   (cond [(< (calcError a b) err) ]
         [(positive? (* (f a) (f (next f a b)))) (cons (cons (next f a b) (f (next f a b))) (findErr f (next f a b) b err next))]
