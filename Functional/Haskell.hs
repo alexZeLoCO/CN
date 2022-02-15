@@ -3,6 +3,7 @@
  - Multi-line Comment
  -}
 
+import Data.Bool
 import Data.List
 import GHC.Base (VecElem (Int16ElemRep))
 import System.IO
@@ -97,7 +98,25 @@ findNewton f r iter
   | iter == 1 = r - f r / derivApprox f r 1
   | otherwise = findNewton f (r - (f r / derivApprox f r 1)) (iter - 1)
 
+{-
+ - Calcula una iteracion del metodo de punto fijo.
+ - Retorna el x-enésimo del punto fijo.
+ -}
+fixed f x iter
+  | not (localConvergence f x) = error "No convergencia"
+  | iter == 1 = f x
+  | otherwise = fixed f (f x) (iter - 1)
+
+{-
+ - Revisa la convergencia local de una función en un punto.
+ - Retorna true si converge y false si no.
+ -}
+localConvergence f root =
+  abs (derivApprox f root (5 / (10 ^ 2))) < 1
+
 main = do
   -- print (findErr f 0 3 (5 / (10 ^ 2)) nextBiseccion)
+  -- print (findNewton (\x -> x ^ 3 + 4 * x ^ 2 - 10) 1.5 5)
+  print (fixed (\x -> negate (0.25 * x ^ 2) + x + 1) (negate 2) 3)
 
-  print (findNewton (\x -> x ^ 3 + 4 * x ^ 2 - 10) 1.5 5)
+-- print (localConvergence (\x -> negate (0.25 * x ^ 2) + x + 1) 1.999)
