@@ -7,6 +7,7 @@ import Data.List
 import GHC.Base (VecElem (Int16ElemRep))
 import System.IO
 import System.Win32 (COORD (y))
+import qualified System.Win32 as Rhapson
 
 {-
  - Retorna el siguiente elemento a evaluar según el método de Biseccion
@@ -78,7 +79,25 @@ f x = x ^ 5 + x ^ 3 + x - 3
 calcIter a b err =
   logBase 2 ((b - a) / err)
 
-main = do
-  print (findErr f 0.5 1.5 (5 / (10 ^ 8)) nextBiseccion)
+{-
+ - Calcula la derivada aproximada dada su función primitiva, un punto x y un valor (h).
+ - A menor sea h, mejor será la aproximación.
+ - Retorna la derivada aproximada.
+ -}
+derivApprox f x h =
+  (f (x + h) - f x) / h
 
--- print (f (findErr f 0.5 1.5 (5 / (10 ^ 8)) nextFalsi))
+{-
+ - Calcula una raíz aproximada dada una función, una raíz y un número de iteraciones a realizar.
+ - Utiliza aproximaciones para calcular las derivadas.
+ - Método Newton-Rhapson.
+ - Retorna raíz aproximada de la función.
+ -}
+findNewton f r iter
+  | iter == 1 = r - f r / derivApprox f r 1
+  | otherwise = findNewton f (r - (f r / derivApprox f r 1)) (iter - 1)
+
+main = do
+  -- print (findErr f 0 3 (5 / (10 ^ 2)) nextBiseccion)
+
+  print (findNewton (\x -> x ^ 3 + 4 * x ^ 2 - 10) 1.5 5)
