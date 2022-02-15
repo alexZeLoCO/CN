@@ -103,7 +103,7 @@ findNewton f r iter
  - Retorna el x-enésimo del punto fijo.
  -}
 fixed f x iter
-  | not (localConvergence f x) = error "No convergencia"
+  | not (localConvergenceRoot f x) = error "No convergencia"
   | iter == 1 = f x
   | otherwise = fixed f (f x) (iter - 1)
 
@@ -111,8 +111,19 @@ fixed f x iter
  - Revisa la convergencia local de una función en un punto.
  - Retorna true si converge y false si no.
  -}
-localConvergence f root =
+localConvergenceRoot f root =
   abs (derivApprox f root (5 / (10 ^ 2))) < 1
+
+--TODO: TEST
+{-
+ - Revisa la convergencia local de una función en un intervalo.
+ - Retorna true si converge para todos los valores del intervalo y false si no.
+ -}
+localConvergenceInterval f a b =
+  (a < derivApprox f a (5 / (10 ^ 2)))
+    && (derivApprox f a (5 / (10 ^ 2)) < b)
+    && (a < derivApprox f b (5 / (10 ^ 2)))
+    && (derivApprox f b (5 / (10 ^ 2)) < b)
 
 main = do
   -- print (findErr f 0 3 (5 / (10 ^ 2)) nextBiseccion)
