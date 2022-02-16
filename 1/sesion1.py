@@ -1,0 +1,46 @@
+import sys
+
+# Retorna (x ^ x ^ x)
+def f3 (x):
+    return x ** x ** x  # x ** x ==> (x ^ x)
+
+# Retorna factorial de n
+def factorial (n):
+    if (n == 0):
+        return 1
+    else:
+        return n * factorial(n-1)
+
+# Retorna superfactorial de n
+def superfactorialRecurs (n):
+    if (n == 0):
+        return 1
+    else:
+        return factorial(n) * superfactorialRecurs(n-1)
+
+def superfactorialIter (n):
+    c = 1
+    for i in range (n+1):
+        c*=factorial(i)
+    return c
+
+# Retorna los n primeros superfactoriales
+def listaSF (n):
+    output = []
+    for i in range (n+1):
+        output.append(superfactorialIter(i))
+    return output
+
+# MAIN
+def main (argv):
+    print(argv + "^" + argv + "^" + argv + "=" + str(f3(int(argv))))
+    print(argv + "! = " + str(factorial(int(argv))))
+    print("Superfactorial (Recursivo) " + argv + " = " + str(superfactorialRecurs(int(argv))))
+    print("Superfacotrial (Iterativo) " + argv + " = " + str(superfactorialIter(int(argv))))
+    print("Lista de 10 primeros Superfactoriales (Iterativo) = " + str(listaSF(10)))
+    
+if __name__ == '__main__':
+    if (len(sys.argv) == 2):
+        main(sys.argv[1])
+    else:
+        print("ERROR: Se debe introducir:\n\tsesion1.py <numero>")
