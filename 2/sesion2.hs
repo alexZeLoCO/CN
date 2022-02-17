@@ -16,15 +16,19 @@ fib n
   | otherwise = fib (n - 1) + fib (n - 2)
 
 -- Retorna la funcion de la coyuntura de collatz
-collatz :: Fractional a => a -> a
+collatz :: Float -> Float
 collatz n
-  | mod n 2 == 0 = n / 2
-  | otherwise = 3 * n - 2
+  | even (floor n) = n / 2
+  | otherwise = 3 * n + 1
+
+coll n
+  | n == 1 = 0
+  | otherwise = 1 + coll (collatz n)
 
 -- Retorna el numero de cifras de un numero
 cifras n
   | n < 1 = 0
-  | otherwise = 1 + cifras (mod n 10)
+  | otherwise = 1 + cifras (n / 10)
 
 -- Retorna  los numeros desde el uno hasta el n en formato 123456789101112
 nums n
@@ -44,10 +48,10 @@ veces f n lis
 main = do
   print (fact 5)
   print (fib 5)
-  print (formaLista fib 5)
-  print (collatz 5) --FIXME: Int? Floating?
-  print (formaLista collatz 5)
+  print (reverse (formaLista fib 5))
+  print (collatz 5)
+  print (reverse (formaLista collatz 5))
   print (nums 5)
-  print (formaLista nums 5)
+  print (formaLista nums 1)
   print (bisec (\x -> x ^ 2 - 2) [0, 2])
   print (veces (\x -> x ^ 2 - 2) 10 [0, 2])
