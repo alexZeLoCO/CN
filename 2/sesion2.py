@@ -101,7 +101,6 @@ def veces(n):
 
 
 def main(argv):
-    print(nums(5) * (10 ** (cifras(6)) + 6))
     print(argv + "! = " + str(fact(int(argv))))
     print("fib (" + argv + ") = " + str(fib(int(argv))))
     print("listFib (" + argv + ") = " + str(listFib(int(argv))))
