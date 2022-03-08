@@ -26,9 +26,9 @@ nextFalsi f a b =
  - Dado un número de iteraciones, retorna la raíz.
  -}
 findIter f a b iter next
-  | iter <= 1 = next f a b
-  | f a * f (next f a b) > 0 = findIter f (next f a b) b (iter - 1) next
-  | otherwise = findIter f a (next f a b) (iter - 1) next
+  | iter <= 1 = next f a b : f (next f a b)
+  | f a * f (next f a b) > 0 = (next f a b : f (next f a b)) : (findIter f (next f a b) b (iter - 1) next)
+  | otherwise = (next f a b : f (next f a b)) : (findIter f a (next f a b) (iter - 1) next)
 
 {-
 -- Funcion en desuso, ver findErr f a b err
@@ -125,7 +125,7 @@ localConvergenceInterval f a b =
     && (a < derivApprox f b (5 / (10 ^ 2)))
     && (derivApprox f b (5 / (10 ^ 2)) < b)
 
-main = do
+man = do
   -- print (findErr f 0 3 (5 / (10 ^ 2)) nextBiseccion)
   -- print (findNewton (\x -> x ^ 3 + 4 * x ^ 2 - 10) 1.5 5)
   print (fixed (\x -> negate (0.25 * x ^ 2) + x + 1) (negate 2) 3)

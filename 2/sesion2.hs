@@ -52,6 +52,6 @@ main = do
   print (collatz 5)
   print (reverse (formaLista collatz 5))
   print (nums 5)
-  print (formaLista nums 1)
+  print (reverse (formaLista nums 5))
   print (bisec (\x -> x ^ 2 - 2) [0, 2])
   print (veces (\x -> x ^ 2 - 2) 10 [0, 2])
