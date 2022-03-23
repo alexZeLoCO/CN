@@ -1,0 +1,1737 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="">
+  <head>
+    <title>UO281827_examen1</title>
+    <meta name="generator" content="wxMaxima"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <script type="text/x-mathjax-config">  MathJax.Hub.Config({
+    displayAlign: "left",
+    context: "MathJax",
+    TeX: {TagSide: "left"}
+  })
+</script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async="async">  // A comment that hinders wxWidgets from optimizing this tag too much.
+</script>
+    <link rel="stylesheet" type="text/css" href="UO281827_examen1_htmlimg/UO281827_examen1.css"/>
+  </head>
+  <body>
+    <!-- ****************************************************** -->
+    <!-- *        Created with wxMaxima version 21.05.2       * -->
+    <!-- ****************************************************** -->
+    <noscript>
+      <div class="error message">
+        <p>Please enable JavaScript in order to get a 2d display of the equations embedded in this web page.</p>
+      </div>
+    </noscript>
+    <p hidden="hidden">\(      \DeclareMathOperator{\abs}{abs}
+      \newcommand{\ensuremath}[1]{\mbox{$#1$}}
+\)</p>
+    <!-- Section cell -->
+    <div class="section">
+      <p>  1 Ejercicio 1.1
+</p>
+    </div>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt"> --&gt;	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_function">sumar_lista</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">lista</span>
+            <span class="code_operator">)</span>
+            <span class="code_operator">:</span>
+            <span class="code_operator">=</span>
+            <span class="code_endofline">
+              <br/>
+            </span>
+            <span class="code_function">if</span>
+            <span class="code_function">length</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">lista</span>
+            <span class="code_operator">)</span>
+            <span class="code_operator">=</span>
+            <span class="code_number">0</span>    
+            <span class="code_comment">/* No hay elementos */</span>
+            <span class="code_endofline">
+              <br/>
+            </span>
+            <span class="code_function">then</span>
+            <span class="code_number">0</span>
+            <span class="code_endofline">
+              <br/>
+            </span>
+            <span class="code_function">else</span>
+            <span class="code_comment">/* sumar_lista(lista) = first(lista) * sumar_lista(rest(lista)) */</span>
+            <span class="code_endofline">
+              <br/>
+            </span>
+            <span class="code_function">first</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">lista</span>
+            <span class="code_operator">)</span>
+            <span class="code_operator">+</span>
+            <span class="code_function">sumar_lista</span>
+            <span class="code_operator">(</span>
+            <span class="code_function">rest</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">lista</span>
+            <span class="code_operator">)</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">$</span>
+            <span class="code_endofline">
+              <br/>
+            </span>
+            <span class="code_function">sumar_lista</span>
+            <span class="code_operator">(</span>
+            <span class="code_operator">[</span>
+            <span class="code_number">1</span>
+            <span class="code_endofline">,</span>
+            <span class="code_number">2</span>
+            <span class="code_endofline">,</span>
+            <span class="code_number">3</span>
+            <span class="code_endofline">,</span>
+            <span class="code_number">4</span>
+            <span class="code_operator">]</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{	}10\]
+</p>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt"> --&gt;	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_function">max_lista</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">lista</span>
+            <span class="code_operator">)</span>
+            <span class="code_operator">:</span>
+            <span class="code_operator">=</span>
+            <span class="code_endofline">
+              <br/>
+            </span>
+            <span class="code_function">if</span>
+            <span class="code_function">length</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">lista</span>
+            <span class="code_operator">)</span>
+            <span class="code_operator">=</span>
+            <span class="code_number">0</span>   
+            <span class="code_comment">/* No hay elementos */</span>
+            <span class="code_endofline">
+              <br/>
+            </span>
+            <span class="code_function">then</span>
+            <span class="code_number">0</span>
+            <span class="code_endofline">
+              <br/>
+            </span>
+            <span class="code_function">else</span>
+            <span class="code_comment">/* max_lista(lista) = max (first(lista), max_lista (rest(lista))) */</span>
+            <span class="code_endofline">
+              <br/>
+            </span>
+            <span class="code_function">max</span>
+            <span class="code_operator">(</span>
+            <span class="code_function">first</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">lista</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">,</span>
+            <span class="code_function">max_lista</span>
+            <span class="code_operator">(</span>
+            <span class="code_function">rest</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">lista</span>
+            <span class="code_operator">)</span>
+            <span class="code_operator">)</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">$</span>
+            <span class="code_endofline">
+              <br/>
+            </span>
+            <span class="code_function">max_lista</span>
+            <span class="code_operator">(</span>
+            <span class="code_operator">[</span>
+            <span class="code_number">1</span>
+            <span class="code_endofline">,</span>
+            <span class="code_number">2</span>
+            <span class="code_endofline">,</span>
+            <span class="code_number">3</span>
+            <span class="code_endofline">,</span>
+            <span class="code_number">4</span>
+            <span class="code_operator">]</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{	}4\]
+</p>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt"> --&gt;	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_function">min_lista</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">lista</span>
+            <span class="code_operator">)</span>
+            <span class="code_operator">:</span>
+            <span class="code_operator">=</span>
+            <span class="code_endofline">
+              <br/>
+            </span>
+            <span class="code_function">if</span>
+            <span class="code_function">length</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">lista</span>
+            <span class="code_operator">)</span>
+            <span class="code_operator">=</span>
+            <span class="code_number">1</span>   
+            <span class="code_comment">/* Hay un elemento */</span>
+            <span class="code_endofline">
+              <br/>
+            </span>
+            <span class="code_function">then</span>
+            <span class="code_function">first</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">lista</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">
+              <br/>
+            </span>
+            <span class="code_function">else</span>    
+            <span class="code_comment">/* min_lista(lista) = min (first(lista), min_lista(rest(lista))) */</span>
+            <span class="code_endofline">
+              <br/>
+            </span>
+            <span class="code_function">min</span>
+            <span class="code_operator">(</span>
+            <span class="code_function">first</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">lista</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">,</span>
+            <span class="code_function">min_lista</span>
+            <span class="code_operator">(</span>
+            <span class="code_function">rest</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">lista</span>
+            <span class="code_operator">)</span>
+            <span class="code_operator">)</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">$</span>
+            <span class="code_endofline">
+              <br/>
+            </span>
+            <span class="code_function">min_lista</span>
+            <span class="code_operator">(</span>
+            <span class="code_operator">[</span>
+            <span class="code_number">1</span>
+            <span class="code_endofline">,</span>
+            <span class="code_number">2</span>
+            <span class="code_endofline">,</span>
+            <span class="code_number">3</span>
+            <span class="code_endofline">,</span>
+            <span class="code_number">4</span>
+            <span class="code_operator">]</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{	}1\]
+</p>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt"> --&gt;	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_function">quita_1</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">lista</span>
+            <span class="code_operator">)</span>
+            <span class="code_operator">:</span>
+            <span class="code_operator">=</span>
+            <span class="code_endofline">
+              <br/>
+            </span>
+            <span class="code_function">if</span>
+            <span class="code_function">length</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">lista</span>
+            <span class="code_operator">)</span>
+            <span class="code_operator">=</span>
+            <span class="code_number">0</span>
+            <span class="code_comment">/* No hay elementos ==&gt; No hay '1' */</span>
+            <span class="code_endofline">
+              <br/>
+            </span>
+            <span class="code_function">then</span>
+            <span class="code_variable">lista</span>
+            <span class="code_comment">/* Retorno la lista vacía */</span>
+            <span class="code_endofline">
+              <br/>
+            </span>
+            <span class="code_function">else</span>
+            <span class="code_comment">/* Puede haber un elemento '1' */</span>
+            <span class="code_endofline">
+              <br/>
+            </span>
+            <span class="code_function">if</span>
+            <span class="code_function">first</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">lista</span>
+            <span class="code_operator">)</span>
+            <span class="code_operator">=</span>
+            <span class="code_number">1</span>
+            <span class="code_comment">/* Si es un '1' */</span>
+            <span class="code_endofline">
+              <br/>
+            </span>
+            <span class="code_function">then</span>
+            <span class="code_function">quita_1</span>
+            <span class="code_operator">(</span>
+            <span class="code_function">rest</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">lista</span>
+            <span class="code_operator">)</span>
+            <span class="code_operator">)</span>
+            <span class="code_comment">/* Lo omito */</span>
+            <span class="code_endofline">
+              <br/>
+            </span>
+            <span class="code_function">else</span>
+            <span class="code_comment">/* No es un '1' */</span>
+            <span class="code_endofline">
+              <br/>
+            </span>
+            <span class="code_function">append</span>
+            <span class="code_operator">(</span>
+            <span class="code_function">makelist</span>
+            <span class="code_operator">(</span>
+            <span class="code_function">first</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">lista</span>
+            <span class="code_operator">)</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">,</span>
+            <span class="code_function">quita_1</span>
+            <span class="code_operator">(</span>
+            <span class="code_function">rest</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">lista</span>
+            <span class="code_operator">)</span>
+            <span class="code_operator">)</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">$</span>
+            <span class="code_comment">/* Lo incluyo */</span>
+            <span class="code_endofline">
+              <br/>
+            </span>
+            <span class="code_function">quita_1</span>
+            <span class="code_operator">(</span>
+            <span class="code_operator">[</span>
+            <span class="code_number">1</span>
+            <span class="code_endofline">,</span>
+            <span class="code_number">2</span>
+            <span class="code_endofline">,</span>
+            <span class="code_number">5</span>
+            <span class="code_endofline">,</span>
+            <span class="code_number">1</span>
+            <span class="code_endofline">,</span>
+            <span class="code_number">1</span>
+            <span class="code_endofline">,</span>
+            <span class="code_number">7</span>
+            <span class="code_operator">]</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{	}\left[ 2\operatorname{,}5\operatorname{,}7\right] \]
+</p>
+    <!-- Section cell -->
+    <div class="section">
+      <p>  2 Ejercicio 1.2
+</p>
+    </div>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt"> --&gt;	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_function">T</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">n</span>
+            <span class="code_operator">)</span>
+            <span class="code_operator">:</span>
+            <span class="code_operator">=</span>
+            <span class="code_endofline">
+              <br/>
+            </span>
+            <span class="code_function">if</span>
+            <span class="code_variable">n</span>
+            <span class="code_endofline">&lt;</span>
+            <span class="code_number">3</span>
+            <span class="code_endofline">
+              <br/>
+            </span>
+            <span class="code_function">then</span>
+            <span class="code_number">1</span>
+            <span class="code_endofline">
+              <br/>
+            </span>
+            <span class="code_function">else</span>
+            <span class="code_endofline">
+              <br/>
+            </span>
+            <span class="code_function">T</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">n</span>
+            <span class="code_operator">−</span>
+            <span class="code_number">1</span>
+            <span class="code_operator">)</span>
+            <span class="code_operator">+</span>
+            <span class="code_function">T</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">n</span>
+            <span class="code_operator">−</span>
+            <span class="code_number">2</span>
+            <span class="code_operator">)</span>
+            <span class="code_operator">+</span>
+            <span class="code_function">T</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">n</span>
+            <span class="code_operator">−</span>
+            <span class="code_number">3</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">$</span>
+            <span class="code_endofline">
+              <br/>
+            </span>
+            <span class="code_function">makelist</span>
+            <span class="code_operator">(</span>
+            <span class="code_function">T</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">n</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">n</span>
+            <span class="code_endofline">,</span>
+            <span class="code_number">1</span>
+            <span class="code_endofline">,</span>
+            <span class="code_number">10</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{	}\left[ 1\operatorname{,}1\operatorname{,}3\operatorname{,}5\operatorname{,}9\operatorname{,}17\operatorname{,}31\operatorname{,}57\operatorname{,}105\operatorname{,}193\right] \]
+</p>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt"> --&gt;	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_comment">/* Tribonacci numbers */</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <!-- Section cell -->
+    <div class="section">
+      <p>  3 Ejercicio 1.3
+</p>
+    </div>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt"> --&gt;	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_function">vuelta</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">lista</span>
+            <span class="code_operator">)</span>
+            <span class="code_operator">:</span>
+            <span class="code_operator">=</span>
+            <span class="code_endofline">
+              <br/>
+            </span>
+            <span class="code_function">if</span>
+            <span class="code_function">length</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">lista</span>
+            <span class="code_operator">)</span>
+            <span class="code_operator">=</span>
+            <span class="code_number">0</span>    
+            <span class="code_comment">/* Lista vacía */</span>
+            <span class="code_endofline">
+              <br/>
+            </span>
+            <span class="code_function">then</span>
+            <span class="code_variable">lista</span>
+            <span class="code_comment">/* Retorno la lista vacía */</span>
+            <span class="code_endofline">
+              <br/>
+            </span>
+            <span class="code_function">else</span>    
+            <span class="code_comment">/* La lista no es vacía, puede tener un first(lista) que sea un átomo ú otra lista */</span>
+            <span class="code_endofline">
+              <br/>
+            </span>
+            <span class="code_function">if</span>
+            <span class="code_function">listp</span>
+            <span class="code_operator">(</span>
+            <span class="code_function">first</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">lista</span>
+            <span class="code_operator">)</span>
+            <span class="code_operator">)</span>
+            <span class="code_comment">/* first(lista) es una lista */</span>
+            <span class="code_endofline">
+              <br/>
+            </span>
+            <span class="code_function">then</span>
+            <span class="code_function">append</span>
+            <span class="code_operator">(</span>
+            <span class="code_function">vuelta</span>
+            <span class="code_operator">(</span>
+            <span class="code_function">rest</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">lista</span>
+            <span class="code_operator">)</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">,</span>
+            <span class="code_function">makelist</span>
+            <span class="code_operator">(</span>
+            <span class="code_function">vuelta</span>
+            <span class="code_operator">(</span>
+            <span class="code_function">first</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">lista</span>
+            <span class="code_operator">)</span>
+            <span class="code_operator">)</span>
+            <span class="code_operator">)</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">
+              <br/>
+            </span>
+            <span class="code_function">else</span>    
+            <span class="code_comment">/* first(lista) es un átomo */</span>
+            <span class="code_endofline">
+              <br/>
+            </span>
+            <span class="code_function">append</span>
+            <span class="code_operator">(</span>
+            <span class="code_function">vuelta</span>
+            <span class="code_operator">(</span>
+            <span class="code_function">rest</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">lista</span>
+            <span class="code_operator">)</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">,</span>
+            <span class="code_function">makelist</span>
+            <span class="code_operator">(</span>
+            <span class="code_function">first</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">lista</span>
+            <span class="code_operator">)</span>
+            <span class="code_operator">)</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">$</span>
+            <span class="code_endofline">
+              <br/>
+            </span>
+            <span class="code_function">vuelta</span>
+            <span class="code_operator">(</span>
+            <span class="code_operator">[</span>
+            <span class="code_number">1</span>
+            <span class="code_endofline">,</span>
+            <span class="code_operator">[</span>
+            <span class="code_number">1</span>
+            <span class="code_endofline">,</span>
+            <span class="code_number">2</span>
+            <span class="code_operator">]</span>
+            <span class="code_endofline">,</span>
+            <span class="code_operator">[</span>
+            <span class="code_number">1</span>
+            <span class="code_endofline">,</span>
+            <span class="code_operator">[</span>
+            <span class="code_number">3</span>
+            <span class="code_endofline">,</span>
+            <span class="code_number">4</span>
+            <span class="code_endofline">,</span>
+            <span class="code_operator">[</span>
+            <span class="code_number">5</span>
+            <span class="code_endofline">,</span>
+            <span class="code_number">6</span>
+            <span class="code_operator">]</span>
+            <span class="code_operator">]</span>
+            <span class="code_operator">]</span>
+            <span class="code_endofline">,</span>
+            <span class="code_number">5</span>
+            <span class="code_operator">]</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{	}\left[ 5\operatorname{,}\left[ \left[ \left[ 6\operatorname{,}5\right] \operatorname{,}4\operatorname{,}3\right] \operatorname{,}1\right] \operatorname{,}\left[ 2\operatorname{,}1\right] \operatorname{,}1\right] \]
+</p>
+    <!-- Section cell -->
+    <div class="section">
+      <p>  4 Ejercicio 1.4
+</p>
+    </div>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i88)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_function">y</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">z</span>
+            <span class="code_operator">)</span>
+            <span class="code_operator">:</span>
+            <span class="code_operator">=</span>
+            <span class="code_function">find_root</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">%e</span>
+            <span class="code_operator">^</span>
+            <span class="code_variable">x</span>
+            <span class="code_operator">·</span>
+            <span class="code_variable">x</span>
+            <span class="code_operator">^</span>
+            <span class="code_number">2</span>
+            <span class="code_operator">−</span>
+            <span class="code_variable">z</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">x</span>
+            <span class="code_endofline">,</span>
+            <span class="code_number">0</span>
+            <span class="code_endofline">,</span>
+            <span class="code_function">abs</span>
+            <span class="code_operator">(</span>
+            <span class="code_number">1</span>
+            <span class="code_operator">·</span>
+            <span class="code_variable">z</span>
+            <span class="code_operator">)</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">$</span>
+            <span class="code_endofline">
+              <br/>
+            </span>
+            <span class="code_comment">/* 1.4 / Apartado 1 */</span>
+            <span class="code_endofline">
+              <br/>
+            </span>
+            <span class="code_function">y</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">%e</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">;</span>
+            <span class="code_endofline">
+              <br/>
+            </span>
+            <span class="code_function">y</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">%pi</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{	}0.9999999999999999\]
+</p>
+    <p>\[\operatorname{	}1.049019000816424\]
+</p>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i90)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_comment">/* 1.4 / Apartado 2 */</span>
+            <span class="code_endofline">
+              <br/>
+            </span>
+            <span class="code_variable">L</span>
+            <span class="code_operator">:</span>
+            <span class="code_function">makelist</span>
+            <span class="code_operator">(</span>
+            <span class="code_function">y</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">z</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">z</span>
+            <span class="code_endofline">,</span>
+            <span class="code_number">0</span>
+            <span class="code_endofline">,</span>
+            <span class="code_number">4</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">;</span>
+            <span class="code_endofline">
+              <br/>
+            </span>
+            <span class="code_function">wxplot2d</span>
+            <span class="code_operator">(</span>
+            <span class="code_operator">[</span>
+            <span class="code_operator">[</span>
+            <span class="code_operator">'</span>
+            <span class="code_variable">discrete</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">L</span>
+            <span class="code_operator">]</span>
+            <span class="code_operator">]</span>
+            <span class="code_endofline">,</span>
+            <span class="code_operator">[</span>
+            <span class="code_variable">x</span>
+            <span class="code_endofline">,</span>
+            <span class="code_operator">−</span>
+            <span class="code_number">5</span>
+            <span class="code_endofline">,</span>
+            <span class="code_number">5</span>
+            <span class="code_operator">]</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{	}\left[ 0.0\operatorname{,}0.7034674224983917\operatorname{,}0.9012010317296661\operatorname{,}1.033230903717665\operatorname{,}1.134286580819568\right] \]
+</p>
+    <p>\[\operatorname{	}\]
+</p>
+    <img src="UO281827_examen1_htmlimg/UO281827_examen1_10.png" width="1198" style="max-width:90%;" loading="lazy" alt=" (Graphics) "/>
+    <br/>
+    <p>\[\operatorname{	}\]
+</p>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i92)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_comment">/* 1.4 / Apartado 3 */</span>
+            <span class="code_endofline">
+              <br/>
+            </span>
+            <span class="code_function">y</span>
+            <span class="code_operator">(</span>
+            <span class="code_number">1</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">;</span>
+            <span class="code_endofline">
+              <br/>
+            </span>
+            <span class="code_function">wxplot2d</span>
+            <span class="code_operator">(</span>
+            <span class="code_operator">[</span>
+            <span class="code_variable">%e</span>
+            <span class="code_operator">^</span>
+            <span class="code_variable">x</span>
+            <span class="code_operator">·</span>
+            <span class="code_variable">x</span>
+            <span class="code_operator">^</span>
+            <span class="code_number">2</span>
+            <span class="code_operator">−</span>
+            <span class="code_number">1</span>
+            <span class="code_operator">]</span>
+            <span class="code_endofline">,</span>
+            <span class="code_operator">[</span>
+            <span class="code_variable">x</span>
+            <span class="code_endofline">,</span>
+            <span class="code_operator">−</span>
+            <span class="code_number">1</span>
+            <span class="code_endofline">,</span>
+            <span class="code_number">1</span>
+            <span class="code_operator">]</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">;</span>
+            <span class="code_endofline">
+              <br/>
+            </span>
+            <span class="code_comment">/*  Decimal expansion of solution to exp(-x) = x^2 */</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{	}0.7034674224983917\]
+</p>
+    <p>\[\operatorname{	}\]
+</p>
+    <img src="UO281827_examen1_htmlimg/UO281827_examen1_14.png" width="1198" style="max-width:90%;" loading="lazy" alt=" (Graphics) "/>
+    <br/>
+    <p>\[\operatorname{	}\]
+</p>
+    <!-- Section cell -->
+    <div class="section">
+      <p>  5 Ejercicio 1.5
+</p>
+    </div>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i51)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_variable">bolas</span>
+            <span class="code_operator">[</span>
+            <span class="code_variable">n</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">k</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">loss</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">pago</span>
+            <span class="code_operator">]</span>
+            <span class="code_operator">:</span>
+            <span class="code_operator">=</span>
+            <span class="code_endofline">
+              <br/>
+            </span>
+            <span class="code_function">if</span>
+            <span class="code_variable">n</span>
+            <span class="code_operator">=</span>
+            <span class="code_variable">k</span>    
+            <span class="code_comment">/* Fin de juego */</span>
+            <span class="code_endofline">
+              <br/>
+            </span>
+            <span class="code_function">then</span>
+            <span class="code_variable">loss</span>   
+            <span class="code_comment">/* Pérdidas */</span>
+            <span class="code_endofline">
+              <br/>
+            </span>
+            <span class="code_function">else</span>    
+            <span class="code_comment">/* Juego en marcha */</span>
+            <span class="code_endofline">
+              <br/>
+            </span>
+            <span class="code_comment">/* Máximo entre dejar de jugar ó seguir jugando en caso de ganar, ó seguir jugando obligatoriamente en caso de perder */</span>
+            <span class="code_endofline">
+              <br/>
+            </span>
+            <span class="code_function">float</span>
+            <span class="code_operator">(</span>
+            <span class="code_number">1</span>
+            <span class="code_operator">/</span>
+            <span class="code_variable">n</span>
+            <span class="code_endofline">·</span>
+            <span class="code_function">max</span>
+            <span class="code_operator">(</span>
+            <span class="code_function">pago</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">k</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">bolas</span>
+            <span class="code_operator">[</span>
+            <span class="code_variable">n</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">k</span>
+            <span class="code_operator">+</span>
+            <span class="code_number">1</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">loss</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">pago</span>
+            <span class="code_operator">]</span>
+            <span class="code_operator">)</span>
+            <span class="code_operator">+</span>
+            <span class="code_operator">(</span>
+            <span class="code_number">1</span>
+            <span class="code_endofline">−</span>
+            <span class="code_number">1</span>
+            <span class="code_operator">/</span>
+            <span class="code_variable">n</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">·</span>
+            <span class="code_variable">bolas</span>
+            <span class="code_operator">[</span>
+            <span class="code_variable">n</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">k</span>
+            <span class="code_operator">+</span>
+            <span class="code_number">1</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">loss</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">pago</span>
+            <span class="code_operator">]</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">$</span>
+            <span class="code_endofline">
+              <br/>
+            </span>
+            <span class="code_endofline">
+              <br/>
+            </span>
+            <span class="code_variable">bolas</span>
+            <span class="code_operator">[</span>
+            <span class="code_number">100</span>
+            <span class="code_endofline">,</span>
+            <span class="code_number">0</span>
+            <span class="code_endofline">,</span>
+            <span class="code_operator">−</span>
+            <span class="code_number">100</span>
+            <span class="code_endofline">,</span>
+            <span class="code_function">lambda</span>
+            <span class="code_operator">(</span>
+            <span class="code_operator">[</span>
+            <span class="code_variable">k</span>
+            <span class="code_operator">]</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">k</span>
+            <span class="code_operator">^</span>
+            <span class="code_number">2</span>
+            <span class="code_operator">)</span>
+            <span class="code_operator">]</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{	}2098.564693327633\]
+</p>
+    <!-- Section cell -->
+    <div class="section">
+      <p>  6 Ejercicio 1.6
+</p>
+    </div>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt"> --&gt;	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_function">M</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">n</span>
+            <span class="code_operator">)</span>
+            <span class="code_operator">:</span>
+            <span class="code_operator">=</span>
+            <span class="code_function">determinant</span>
+            <span class="code_operator">(</span>
+            <span class="code_function">genmatrix</span>
+            <span class="code_operator">(</span>
+            <span class="code_function">lambda</span>
+            <span class="code_operator">(</span>
+            <span class="code_operator">[</span>
+            <span class="code_variable">i</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">j</span>
+            <span class="code_operator">]</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">i</span>
+            <span class="code_operator">^</span>
+            <span class="code_variable">j</span>
+            <span class="code_operator">+</span>
+            <span class="code_variable">j</span>
+            <span class="code_operator">^</span>
+            <span class="code_variable">i</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">n</span>
+            <span class="code_operator">)</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">$</span>
+            <span class="code_endofline">
+              <br/>
+            </span>
+            <span class="code_function">makelist</span>
+            <span class="code_operator">(</span>
+            <span class="code_function">M</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">n</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">n</span>
+            <span class="code_endofline">,</span>
+            <span class="code_number">1</span>
+            <span class="code_endofline">,</span>
+            <span class="code_number">10</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">;</span>
+            <span class="code_endofline">
+              <br/>
+            </span>
+            <span class="code_comment">/* Determinant of the n X n matrix m(i,j)=i^j+j^i */</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{	}\]
+</p>
+    <!-- Section cell -->
+    <div class="section">
+      <p>  7 Ejercicio 1.7
+</p>
+    </div>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt"> --&gt;	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_comment">/* 50 cifras aproximadas ==&gt; Error &lt;= 5*10^-50 */</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i4)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_comment">/* Calcula aproximadamente */</span>
+            <span class="code_endofline">
+              <br/>
+            </span>
+            <span class="code_function">kill</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">all</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">$</span>
+            <span class="code_endofline">
+              <br/>
+            </span>
+            <span class="code_function">solver</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">foo</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">a</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">b</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">iters</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">_next</span>
+            <span class="code_operator">)</span>
+            <span class="code_operator">:</span>
+            <span class="code_operator">=</span>
+            <span class="code_endofline">
+              <br/>
+            </span>
+            <span class="code_function">if</span>
+            <span class="code_variable">iters</span>
+            <span class="code_endofline">&lt;</span>
+            <span class="code_operator">=</span>
+            <span class="code_number">1</span>
+            <span class="code_endofline">
+              <br/>
+            </span>
+            <span class="code_function">then</span>
+            <span class="code_function">_next</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">a</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">b</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">foo</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">
+              <br/>
+            </span>
+            <span class="code_function">else</span>
+            <span class="code_endofline">
+              <br/>
+            </span>
+            <span class="code_function">if</span>
+            <span class="code_function">foo</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">a</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">·</span>
+            <span class="code_function">foo</span>
+            <span class="code_operator">(</span>
+            <span class="code_function">_next</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">a</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">b</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">foo</span>
+            <span class="code_operator">)</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">&lt;</span>
+            <span class="code_number">0</span>
+            <span class="code_endofline">
+              <br/>
+            </span>
+            <span class="code_function">then</span>
+            <span class="code_function">solver</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">foo</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">a</span>
+            <span class="code_endofline">,</span>
+            <span class="code_function">_next</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">a</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">b</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">foo</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">iters</span>
+            <span class="code_endofline">−</span>
+            <span class="code_number">1</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">_next</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">
+              <br/>
+            </span>
+            <span class="code_function">else</span>
+            <span class="code_endofline">
+              <br/>
+            </span>
+            <span class="code_function">solver</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">foo</span>
+            <span class="code_endofline">,</span>
+            <span class="code_function">_next</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">a</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">b</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">foo</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">b</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">iters</span>
+            <span class="code_endofline">−</span>
+            <span class="code_number">1</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">_next</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">$</span>
+            <span class="code_endofline">
+              <br/>
+            </span>
+            <span class="code_endofline">
+              <br/>
+            </span>
+            <span class="code_comment">/* Calcula nº iteraciones necesarias en bisección para alcanzar un error */</span>
+            <span class="code_endofline">
+              <br/>
+            </span>
+            <span class="code_function">itersBisec</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">a</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">b</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">err</span>
+            <span class="code_operator">)</span>
+            <span class="code_operator">:</span>
+            <span class="code_operator">=</span>
+            <span class="code_endofline">
+              <br/>
+            </span>
+            <span class="code_function">float</span>
+            <span class="code_operator">(</span>
+            <span class="code_function">log</span>
+            <span class="code_operator">(</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">b</span>
+            <span class="code_operator">−</span>
+            <span class="code_variable">a</span>
+            <span class="code_operator">)</span>
+            <span class="code_operator">/</span>
+            <span class="code_variable">err</span>
+            <span class="code_operator">)</span>
+            <span class="code_operator">/</span>
+            <span class="code_function">log</span>
+            <span class="code_operator">(</span>
+            <span class="code_number">2</span>
+            <span class="code_operator">)</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">$</span>
+            <span class="code_endofline">
+              <br/>
+            </span>
+            <span class="code_endofline">
+              <br/>
+            </span>
+            <span class="code_function">solver</span>
+            <span class="code_operator">(</span>
+            <span class="code_function">lambda</span>
+            <span class="code_operator">(</span>
+            <span class="code_operator">[</span>
+            <span class="code_variable">x</span>
+            <span class="code_operator">]</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">x</span>
+            <span class="code_operator">·</span>
+            <span class="code_function">sin</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">x</span>
+            <span class="code_operator">)</span>
+            <span class="code_operator">−</span>
+            <span class="code_number">1</span>
+            <span class="code_operator">/</span>
+            <span class="code_number">3</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">,</span>
+            <span class="code_number">0</span>
+            <span class="code_endofline">,</span>
+            <span class="code_number">1</span>
+            <span class="code_endofline">,</span>
+            <span class="code_function">itersBisec</span>
+            <span class="code_operator">(</span>
+            <span class="code_number">0</span>
+            <span class="code_endofline">,</span>
+            <span class="code_number">1</span>
+            <span class="code_endofline">,</span>
+            <span class="code_number">5</span>
+            <span class="code_operator">·</span>
+            <span class="code_number">10</span>
+            <span class="code_operator">^</span>
+            <span class="code_operator">−</span>
+            <span class="code_number">50</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">,</span>
+            <span class="code_function">lambda</span>
+            <span class="code_operator">(</span>
+            <span class="code_operator">[</span>
+            <span class="code_variable">a</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">b</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">foo</span>
+            <span class="code_operator">]</span>
+            <span class="code_endofline">,</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">b</span>
+            <span class="code_operator">+</span>
+            <span class="code_variable">a</span>
+            <span class="code_operator">)</span>
+            <span class="code_operator">/</span>
+            <span class="code_number">2</span>
+            <span class="code_operator">)</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">numer</span>
+            <span class="code_endofline">;</span>
+            <span class="code_endofline">
+              <br/>
+            </span>
+            <span class="code_function">wxplot2d</span>
+            <span class="code_operator">(</span>
+            <span class="code_operator">[</span>
+            <span class="code_variable">x</span>
+            <span class="code_operator">·</span>
+            <span class="code_function">sin</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">x</span>
+            <span class="code_operator">)</span>
+            <span class="code_operator">−</span>
+            <span class="code_number">1</span>
+            <span class="code_operator">/</span>
+            <span class="code_number">3</span>
+            <span class="code_operator">]</span>
+            <span class="code_endofline">,</span>
+            <span class="code_operator">[</span>
+            <span class="code_variable">x</span>
+            <span class="code_endofline">,</span>
+            <span class="code_number">0</span>
+            <span class="code_endofline">,</span>
+            <span class="code_number">1</span>
+            <span class="code_operator">]</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{	}0.5948391725054929\]
+</p>
+    <p>\[\operatorname{	}\]
+</p>
+    <img src="UO281827_examen1_htmlimg/UO281827_examen1_20.png" width="1198" style="max-width:90%;" loading="lazy" alt=" (Graphics) "/>
+    <br/>
+    <p>\[\operatorname{	}\]
+</p>
+    <!-- Section cell -->
+    <div class="section">
+      <p>  8 Ejercicio 1.8
+</p>
+    </div>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i57)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_function">solver</span>
+            <span class="code_operator">(</span>
+            <span class="code_function">lambda</span>
+            <span class="code_operator">(</span>
+            <span class="code_operator">[</span>
+            <span class="code_variable">x</span>
+            <span class="code_operator">]</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">x</span>
+            <span class="code_operator">^</span>
+            <span class="code_number">2</span>
+            <span class="code_operator">−</span>
+            <span class="code_function">cos</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">x</span>
+            <span class="code_operator">)</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">,</span>
+            <span class="code_number">0</span>
+            <span class="code_endofline">,</span>
+            <span class="code_number">1</span>
+            <span class="code_endofline">,</span>
+            <span class="code_function">itersBisec</span>
+            <span class="code_operator">(</span>
+            <span class="code_number">0</span>
+            <span class="code_endofline">,</span>
+            <span class="code_number">1</span>
+            <span class="code_endofline">,</span>
+            <span class="code_number">5</span>
+            <span class="code_operator">·</span>
+            <span class="code_number">10</span>
+            <span class="code_operator">^</span>
+            <span class="code_operator">−</span>
+            <span class="code_number">50</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">,</span>
+            <span class="code_function">lambda</span>
+            <span class="code_operator">(</span>
+            <span class="code_operator">[</span>
+            <span class="code_variable">a</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">b</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">foo</span>
+            <span class="code_operator">]</span>
+            <span class="code_endofline">,</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">b</span>
+            <span class="code_operator">+</span>
+            <span class="code_variable">a</span>
+            <span class="code_operator">)</span>
+            <span class="code_operator">/</span>
+            <span class="code_number">2</span>
+            <span class="code_operator">)</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">numer</span>
+            <span class="code_endofline">;</span>
+            <span class="code_endofline">
+              <br/>
+            </span>
+            <span class="code_function">cos</span>
+            <span class="code_operator">(</span>
+            <span class="code_function">find_root</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">x</span>
+            <span class="code_operator">^</span>
+            <span class="code_number">2</span>
+            <span class="code_operator">=</span>
+            <span class="code_function">cos</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">x</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">x</span>
+            <span class="code_endofline">,</span>
+            <span class="code_number">0</span>
+            <span class="code_endofline">,</span>
+            <span class="code_number">1</span>
+            <span class="code_operator">)</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">numer</span>
+            <span class="code_endofline">;</span>
+            <span class="code_endofline">
+              <br/>
+            </span>
+            <span class="code_function">wxplot2d</span>
+            <span class="code_operator">(</span>
+            <span class="code_operator">[</span>
+            <span class="code_variable">x</span>
+            <span class="code_operator">^</span>
+            <span class="code_number">2</span>
+            <span class="code_operator">−</span>
+            <span class="code_function">cos</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">x</span>
+            <span class="code_operator">)</span>
+            <span class="code_operator">]</span>
+            <span class="code_endofline">,</span>
+            <span class="code_operator">[</span>
+            <span class="code_variable">x</span>
+            <span class="code_endofline">,</span>
+            <span class="code_operator">−</span>
+            <span class="code_number">0</span>
+            <span class="code_endofline">,</span>
+            <span class="code_number">1</span>
+            <span class="code_operator">]</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{	}0.8241323123025224\]
+</p>
+    <p>\[\operatorname{	}0.6791940681811024\]
+</p>
+    <p>\[\operatorname{	}\]
+</p>
+    <img src="UO281827_examen1_htmlimg/UO281827_examen1_25.png" width="1198" style="max-width:90%;" loading="lazy" alt=" (Graphics) "/>
+    <br/>
+    <p>\[\operatorname{	}\]
+</p>
+    <!-- Section cell -->
+    <div class="section">
+      <p>  9 Ejercicio 1.9
+</p>
+    </div>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i96)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_comment">/* Función */</span>
+            <span class="code_endofline">
+              <br/>
+            </span>
+            <span class="code_function">f</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">vect</span>
+            <span class="code_operator">)</span>
+            <span class="code_operator">:</span>
+            <span class="code_operator">=</span>
+            <span class="code_operator">[</span>
+            <span class="code_endofline">
+              <br/>
+            </span>    
+            <span class="code_number">1</span>
+            <span class="code_operator">/</span>
+            <span class="code_number">5</span>
+            <span class="code_operator">·</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">vect</span>
+            <span class="code_operator">[</span>
+            <span class="code_number">2</span>
+            <span class="code_operator">]</span>
+            <span class="code_operator">+</span>
+            <span class="code_variable">vect</span>
+            <span class="code_operator">[</span>
+            <span class="code_number">3</span>
+            <span class="code_operator">]</span>
+            <span class="code_operator">+</span>
+            <span class="code_number">1</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">,</span>
+            <span class="code_endofline">
+              <br/>
+            </span>    
+            <span class="code_number">1</span>
+            <span class="code_operator">/</span>
+            <span class="code_number">5</span>
+            <span class="code_operator">·</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">vect</span>
+            <span class="code_operator">[</span>
+            <span class="code_number">1</span>
+            <span class="code_operator">]</span>
+            <span class="code_operator">+</span>
+            <span class="code_variable">vect</span>
+            <span class="code_operator">[</span>
+            <span class="code_number">2</span>
+            <span class="code_operator">]</span>
+            <span class="code_operator">^</span>
+            <span class="code_number">2</span>
+            <span class="code_operator">+</span>
+            <span class="code_variable">vect</span>
+            <span class="code_operator">[</span>
+            <span class="code_number">3</span>
+            <span class="code_operator">]</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">,</span>
+            <span class="code_endofline">
+              <br/>
+            </span>    
+            <span class="code_number">1</span>
+            <span class="code_operator">/</span>
+            <span class="code_number">5</span>
+            <span class="code_operator">·</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">vect</span>
+            <span class="code_operator">[</span>
+            <span class="code_number">1</span>
+            <span class="code_operator">]</span>
+            <span class="code_operator">+</span>
+            <span class="code_variable">vect</span>
+            <span class="code_operator">[</span>
+            <span class="code_number">2</span>
+            <span class="code_operator">]</span>
+            <span class="code_operator">+</span>
+            <span class="code_variable">vect</span>
+            <span class="code_operator">[</span>
+            <span class="code_number">3</span>
+            <span class="code_operator">]</span>
+            <span class="code_operator">^</span>
+            <span class="code_number">2</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">
+              <br/>
+            </span>
+            <span class="code_operator">]</span>
+            <span class="code_endofline">$</span>
+            <span class="code_endofline">
+              <br/>
+            </span>
+            <span class="code_endofline">
+              <br/>
+            </span>
+            <span class="code_comment">/* Retorna la normal del vector */</span>
+            <span class="code_endofline">
+              <br/>
+            </span>
+            <span class="code_function">norma</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">vect</span>
+            <span class="code_operator">)</span>
+            <span class="code_operator">:</span>
+            <span class="code_operator">=</span>
+            <span class="code_endofline">
+              <br/>
+            </span>
+            <span class="code_function">sqrt</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">vect</span>
+            <span class="code_operator">[</span>
+            <span class="code_number">1</span>
+            <span class="code_operator">]</span>
+            <span class="code_operator">^</span>
+            <span class="code_number">2</span>
+            <span class="code_operator">+</span>
+            <span class="code_variable">vect</span>
+            <span class="code_operator">[</span>
+            <span class="code_number">2</span>
+            <span class="code_operator">]</span>
+            <span class="code_operator">^</span>
+            <span class="code_number">2</span>
+            <span class="code_operator">+</span>
+            <span class="code_variable">vect</span>
+            <span class="code_operator">[</span>
+            <span class="code_number">3</span>
+            <span class="code_operator">]</span>
+            <span class="code_operator">^</span>
+            <span class="code_number">2</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">$</span>
+            <span class="code_endofline">
+              <br/>
+            </span>
+            <span class="code_endofline">
+              <br/>
+            </span>
+            <span class="code_comment">/* Utiliza método de punto fijo hasta que la norma de la semilla llegue a un valor cota */</span>
+            <span class="code_endofline">
+              <br/>
+            </span>
+            <span class="code_function">hallaPuntoFijo</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">foo</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">semilla</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">cota</span>
+            <span class="code_operator">)</span>
+            <span class="code_operator">:</span>
+            <span class="code_operator">=</span>
+            <span class="code_endofline">
+              <br/>
+            </span>
+            <span class="code_function">if</span>
+            <span class="code_function">norma</span>
+            <span class="code_operator">(</span>
+            <span class="code_function">foo</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">semilla</span>
+            <span class="code_operator">)</span>
+            <span class="code_operator">−</span>
+            <span class="code_variable">semilla</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">&lt;</span>
+            <span class="code_variable">cota</span>
+            <span class="code_endofline">
+              <br/>
+            </span>
+            <span class="code_function">then</span>
+            <span class="code_variable">semilla</span>
+            <span class="code_endofline">
+              <br/>
+            </span>
+            <span class="code_function">else</span>
+            <span class="code_endofline">
+              <br/>
+            </span>
+            <span class="code_function">hallaPuntoFijo</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">foo</span>
+            <span class="code_endofline">,</span>
+            <span class="code_function">float</span>
+            <span class="code_operator">(</span>
+            <span class="code_function">foo</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">semilla</span>
+            <span class="code_operator">)</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">cota</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">$</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i99)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_function">hallaPuntoFijo</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">f</span>
+            <span class="code_endofline">,</span>
+            <span class="code_operator">[</span>
+            <span class="code_number">1</span>
+            <span class="code_endofline">,</span>
+            <span class="code_number">1</span>
+            <span class="code_endofline">,</span>
+            <span class="code_number">1</span>
+            <span class="code_operator">]</span>
+            <span class="code_endofline">,</span>
+            <span class="code_number">10</span>
+            <span class="code_operator">^</span>
+            <span class="code_operator">−</span>
+            <span class="code_number">10</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{	}\left[ 0.2225761691123296\operatorname{,}0.05644042266557101\operatorname{,}0.05644042266557101\right] \]
+</p>
+    <!-- Section cell -->
+    <div class="section">
+      <p>  10 Ejercicio 1.10
+</p>
+    </div>
+    <!-- Text cell -->
+    <div class="comment">Ejercicios concluidos con éxito:
+      <br/>--&gt; 1.1                             ~~&gt; Similar a ejercicios impartidos en otras asignaturas (e.g. Paradigmas, Programación Funcional)
+      <br/>--&gt; 1.2                             ~~&gt; Similar a ejercicios impartidos en otras asignaturas (e.g. Paradigmas, Programación Funcional)
+      <br/>--&gt; 1.3                             ~~&gt; Similar a ejercicios impartidos en otras asignaturas (e.g. Paradigmas, Programación Funcional)
+      <br/>--&gt; 1.4 (apartados 1 y 3)    ~~&gt; Apartados 1 y 3 cortos y fáciles de replicar
+      <br/>--&gt; 1.6                             ~~&gt; Operación fácil de replicar una vez resuelta por primera vez
+      <br/>--&gt; 1.9 (apartado 2)           ~~&gt; Algoritmo directo e iterativo
+      <br/>Disponiendo de 15 minutos para cada ejercicio:
+      <br/>--&gt; 1.1
+      <br/>--&gt; 1.2
+      <br/>--&gt; 1.3
+      <br/>--&gt; 1.6
+</div>
+    <hr/>
+    <p>
+      <small> Created with 
+        <a href="https://wxMaxima-developers.github.io/wxmaxima/">wxMaxima</a>.</small>
+    </p>
+    <small> The source of this Maxima session can be downloaded 
+      <a href="UO281827_examen1_htmlimg/UO281827_examen1.wxmx">here</a>.</small>
+  </body>
+</html>
