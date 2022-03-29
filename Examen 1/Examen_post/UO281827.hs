@@ -21,6 +21,5 @@ main = do
   --  print (calcIter (negate 2) (negate 1) 1 / (10 ^ 2))
   --print (solver (\x -> x ^ 3 - x ^ 2 - x + 7) (negate 2) (negate 1) (calcIter (negate 2) (negate 1) 1 / 10) bisec)
   --print ((\x -> x ^ 3 - x ^ 2 + x + 7) (solver (\x -> x ^ 3 - x ^ 2 - x + 7) (negate 2) (negate 1) (calcIter (negate 2) (negate 1) 1 / 10) bisec))
-  print (foo)
   print (solver foo 2 3 1000 bisec)
   print (foo (solver foo 2 3 1000 bisec))
