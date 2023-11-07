@@ -1,0 +1,137 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 22.04.0 ] */
+/* [wxMaxima: input   start ] */
+/* Forma iterativa */
+facto(n):=block(aux:1,  /* Valor inicial de variable aux */
+    for i while i<=n do aux:aux*i, /* Para i = 1 hasta n : aux = aux * i */
+    return(aux)); /* Retorno */
+
+/* Forma recursiva */
+fact(n):= if n<2 then 1 /* Si es menor que 2 (1 ó 0) retornar 1 */
+            else n * fact (n-1); /* Si no, recursividad */
+
+/* Forma estructura de datos (?) */
+fa[n]:=if n<2 then 1
+        else n*fa[n-1];
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+showtime:true;
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+facto(23);
+fact(23);
+fa[23];
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+fib(n):=if n<=2 then 1 else fib(n-1) + fib(n-2);
+fib(30);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+remfunction(fibo);  /* Elimina definición de fibo */
+fibo[n]:=if n<=2 then 1 else fibo[n-1] + fibo[n-2]; /* Definición de función Fibo */
+fibo[1000]; /* Test */
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+f(n):=if mod(n, 2) = 0 then n/2 else 3*n+1;
+f(5);   /* ==> 16 */
+f(4);   /* ==> 2 */
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+makelist(f(k), k, 1, 15);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+coll[n]:=if (n = 1) then 0 else 1 + coll[f(n)];
+coll[6];
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+makelist(coll[k], k, 1, 15);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+reverse([1,2,3]);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+remdef(reve);
+reve[lista]:=if (lista=[]) then [] else append(reve[rest(lista)], [lista[1]]);  /* Voltea una lista (equivalente a reverse(lista)) */
+reve[[1,2,3]];
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+numcif(n):=floor(log(n)/log(10))+1; /* nº cifras */
+numcif(100);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+remdef(foo);
+foo[n]:=if n=1 then 1 else foo[n-1]*10^(numcif(n)) + n;
+foo[2];
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+makelist(foo[k], k, 1, 15);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+f(x):=x^2-2;
+bisec[list]:=block(a:list[1],b:list[2],
+                if (f(a)*f(((a+b)/2)) < 0) then
+                            [a, (a+b)/2]
+                else
+                            [(a+b)/2, b]);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+bisec[[0, 2]];
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+wxplot2d([f(x)], [x,0,2])$
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+showtime:true;
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+remdef(veces);
+veces[n]:=if n=1 then bisec[[0,2]] else bisec[veces[n-1]];
+veces[100], numer;
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+vecesPrimo(n, lis):=if n=1 then bisec[lis] else vecesPrimo(n-1, bisec[lis]);
+vecesPrimo(10, [0,2]);
+/* [wxMaxima: input   end   ] */
+
+
+
+/* Old versions of Maxima abort on loading files that end in a comment. */
+"Created with wxMaxima 22.04.0"$
