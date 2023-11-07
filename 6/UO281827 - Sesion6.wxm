@@ -1,0 +1,203 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 22.04.0 ] */
+/* [wxMaxima: section start ]
+Factorización de Cholesky
+   [wxMaxima: section end   ] */
+
+
+/* [wxMaxima: input   start ] */
+Q:genmatrix(lambda([i, j], random(3)), 10, 10);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+PO:Q.transpose(Q);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+menor(matriz, size):=genmatrix(lambda([i, j], matriz[i, j]), size, size)$
+
+defPos(matriz) :=
+if length(matriz)=1
+then determinant(matriz)>0
+else
+determinant(matriz)>0 and defPos(menor(matriz, length(matriz)-1))$
+
+defPos(PO);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+makelist( determinant(menor(PO, k)), k, 1, 10);
+defPosMake(matriz) := prod(  /* FIXME */
+    if determinant(menor(PO, k))>0 
+    then 1 
+    else 0, 
+    k, 1, length(matriz))$
+defPosMake(PO);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+kill(L)$
+L[i, j] :=
+    if i=j and i=1
+    then sqrt (PO[1,1])     /* Primera posición, elem = sqrt(PO[1,1]) */
+    elseif i=j
+    then sqrt(PO[j,j]-sum(L[j,k]^2,k,1,j-1)) /* Diagonal, elem = sqrt(PO[j,j] - L[j,k]^2) */
+    else 1/L[j,j]*(PO[i,j]-sum(L[j,k]*L[i,k],k,1,j-1))$ /* El resto de casos */
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+T:genmatrix(lambda([i,j], L[i,j]), 5, 5);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+chol(matrix) :=
+block(
+    kill(L),
+    L[i, j] :=
+    if i=j and i=1
+    then sqrt (PO[1,1])     /* Primera posición, elem = sqrt(PO[1,1]) */
+    elseif i=j
+    then sqrt(PO[j,j]-sum(L[j,k]^2,k,1,j-1)) /* Diagonal, elem = sqrt(PO[j,j] - L[j,k]^2) */
+    else 1/L[j,j]*(PO[i,j]-sum(L[j,k]*L[i,k],k,1,j-1)), /* El resto de casos */
+genmatrix(lambda([i,j], L[i,j]), length(matrix), length(matrix)));
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+chol(PO).transpose(chol(PO))-PO;
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: section start ]
+Jacobi
+   [wxMaxima: section end   ] */
+
+
+/* [wxMaxima: input   start ] */
+A(n):=
+genmatrix(
+lambda([i,j],
+    if i=j
+    then n^3
+    else i+j),
+n,n)$
+A(10);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+b(n):=makelist(k, k, 1, n)$
+b(10);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+D(n):=genmatrix(
+lambda([i,j],
+    if i=j
+    then n^3
+    else 0)
+, n, n)$
+R(n):=A(n)-D(n)$
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+kill(x)$
+x[n]:=  /* Jacobi */
+if n=1
+then [6, 4, 111, 6, 0, 6, 0, 4]
+else invert(D(8)).(b(8)-R(8).x[n-1])$
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+x[10];
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+invert(A(8)).b(8);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: section start ]
+Newton-Rhapson
+   [wxMaxima: section end   ] */
+
+
+/* [wxMaxima: input   start ] */
+g(vector) :=
+[vector[1]^2 + vector[2] + 3*vector[3] + vector[4]^3, vector[1]-vector[2], vector[3] + vector[4], vector[4]^2 + vector[2]]/5-[81/5, -6/5, 7/5, 23/5]$
+g([x1, x2, x3, x4]);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+so:algsys(g([x, y, z, t]), [x, y, z, t]); /* Solución real */
+so, numer;
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+define(jaco(x, y, z, t), jacobian(g([x, y, z, t]), [x, y, z, t]))$
+jaco(1, 2, 3, 4);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+newton(vector) := transpose(vector-invert(jaco(vector[1], vector[2], vector[3], vector[4])).g(vector))[1]$
+newton([0,0,0,0]);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+newtonIters(iters, vector) :=
+if iters = 1
+then newton(vector)
+else
+newtonIters(iters-1, newton(vector))$
+newtonIters(10^3, [-15, -9, 12, -5]), numer;
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: section start ]
+Punto Fijo
+   [wxMaxima: section end   ] */
+
+
+/* [wxMaxima: input   start ] */
+h(lista):=lista-g(lista)/22$
+veces(n, vector) :=
+if n = 1 then h(vector)
+else
+veces(n-1, h(vector))$
+veces(12, [8, 14, 10, -3]);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: section start ]
+Eigenvalues
+   [wxMaxima: section end   ] */
+
+
+/* [wxMaxima: input   start ] */
+po:expand(charpoly(PO, x));
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+allroots(po);
+eigenvalues(PO);
+/* [wxMaxima: input   end   ] */
+
+
+
+/* Old versions of Maxima abort on loading files that end in a comment. */
+"Created with wxMaxima 22.04.0"$
