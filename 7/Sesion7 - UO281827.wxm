@@ -1,0 +1,280 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 22.04.0 ] */
+/* [wxMaxima: section start ]
+Calcular polinomio de grado 10 que coincida con:
+   [wxMaxima: section end   ] */
+
+
+/* [wxMaxima: input   start ] */
+f(x):=323+x^3+x^2+666*x^8+x^10$
+define(p(x), sum(a[k]*x^k, k, 1, 10))$
+ecu(i):=p(i)-f(i)$
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+makelist(ecu(i), i, 1, 10);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+solve(makelist(ecu(i), i, 1, 10))[1];
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+pp:p(x)$
+pp, solve(makelist(ecu(i), i, 1, 10))[1];
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: section start ]
+Crear matriz aleatoria cuadrada de orden 5 y comprobar que anula su polinomio característico Tma Cayley-Hamilton
+   [wxMaxima: section end   ] */
+
+
+/* [wxMaxima: input   start ] */
+M:genmatrix(lambda([i,j], random(4)), 5, 5)$
+pCar:expand(charpoly(M, x));
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+id5:matrix([1, 0, 0, 0, 0],
+    [0, 1, 0, 0, 0],
+    [0, 0, 1, 0, 0],
+    [0, 0, 0, 1, 0],
+    [0, 0, 0, 0, 1]
+)$
+snTerm:-x^^5+6*x^^4+9*x^^3-30*x^^2+86*x, x=M; /* Copiado de %o56 sin tmno indep. Resulta en I*tmno indep */
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: section start ]
+Calcular polinomio interpolador de grado 10 en los nodos {0,1,...,10} de f(x):=exp(x)
+   [wxMaxima: section end   ] */
+
+
+/* [wxMaxima: input   start ] */
+kill(all)$
+f(x):=exp(x)$
+define(p(x), sum(a[k]*x^k,k, 1, 10))$
+ecu(i):=p(i)-f(i)$
+ppp:p(x)$
+ppp, solve(makelist(ecu(i), i, 1, 10))[1], numer$
+interp: ppp, solve(makelist(ecu(i), i, 1, 10))[1], numer;
+wxplot2d([interp, exp(x)], [x, 0, 10]);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+kill(all)$
+f(x):=sin(x)$
+define(p(x), sum(a[k]*x^k,k, 1, 10))$
+ecu(i):=p(i)-f(i)$
+ppp:p(x)$
+ppp, solve(makelist(ecu(i), i, 1, 10))[1], numer$
+interp: ppp, solve(makelist(ecu(i), i, 1, 10))[1], numer;
+wxplot2d([interp, sin(x)], [x, 0, 12]);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: section start ]
+Funciones de matrices de interpolación de Sylvester-Lagrange
+   [wxMaxima: section end   ] */
+
+
+/* [wxMaxima: input   start ] */
+D:genmatrix(lambda([i,j], if (i=j) then i else 0), 7, 7);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+P:genmatrix(lambda([i,j], random(3)), 7, 7);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+M:invert(P).D.P;
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+vaps:eigenvalues(M)[1];
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+kill(a);
+define(p(x), sum(a[k]*x^^k, k, 2, 8))$
+ecu(i):=p(vaps[i])-sqrt(vaps[i])$
+sol:solve(makelist(ecu(i), i, 1, 7));
+pppp:sol[1]$
+lagra:pppp, sol[1]$
+raiz:lagra, x=M$
+radcan(raiz)$
+raiz.raiz-M$
+radcan(raiz.raiz-M);    /* FIXME */
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: subsect start ]
+
+   [wxMaxima: subsect end   ] */
+
+
+/* [wxMaxima: input   start ] */
+kill(all);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+define(p(x), sum(a[k]*x^^k, k, 2, 8))$
+pp:p(x)$
+ecu(i):=p(vaps[i])-exp(vaps[i])$
+sol:solve(makelist(ecu(i), i, 1, 7))$
+lagra:pp, sol[1]$
+lagra, numer;
+raiz:lagra, x=M;
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+ratprint:false;
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+nusum(M^^k/k!, k,0, 44), numer; /* Debería salir esto */
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: subsect start ]
+
+   [wxMaxima: subsect end   ] */
+
+
+/* [wxMaxima: input   start ] */
+kill(a)$
+define(p(x), sum(a[k]*x^^k, k, 2, 8))$
+ecu(i):=p(vaps[i])-cos(vaps[i])$
+sol:solve(makelist(ecu(i), i, 1, 7))$
+pp:p(x)$
+lagra:pp, sol[1]$
+raiz:lagra, x=M$
+ez:radcan(raiz)$
+out:ez.ez-M;
+radcan(out), numer;
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+nusum(M^^(2*k)/(2*k)!*(-1)^k, k, 1, 10), numer;
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: section start ]
+valores propios repetidos
+   [wxMaxima: section end   ] */
+
+
+/* [wxMaxima: input   start ] */
+D:matrix(
+[1, 0, 0, 0, 0, 0, 0],
+[0, 1, 0, 0, 0, 0, 0],
+[0, 0, 2, 0, 0, 0, 0],
+[0, 0, 0, 2, 0, 0, 0],
+[0, 0, 0, 0, 2, 0, 0],
+[0, 0, 0, 0, 0, 5, 0],
+[0, 0, 0, 0, 0, 0, 6]);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+P:genmatrix(lambda([i,j], random(3)), 7, 7);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+M:invert(P).D.P;
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+ld(n):=diagmatrix(n, 1);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+eigenvalues(M);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+define(P(x), sum(a[k]*x^k, k, 2, 6))$
+define(dP(x), diff(P(x), x, 1))$
+define(dP2(x), diff(P(x), x, 2))$
+define (draiz(x), diff(sqrt(x), x, 1))$
+define (d2raiz(x), diff(sqrt(x), x, 2))$
+kill(ecu)$
+ecu[1]:P(4)-sqrt(4)$
+ecu[2]:P(2)-sqrt(2)$
+ecu[3]:dP(4)-draiz(4)$
+ecu[4]:dP(1)-draiz(1)$
+ecu[5]:dP2(1)-d2raiz(1)$
+ECU:makelist(ecu[k], k, 1, 5)$
+sol:solve(ECU)$
+define(PP(x), sum(a[k]*x^^k, k,2,6))$
+PP:PP(x)$
+lagra:PP(x)$
+lagra:PP, sol[1]$
+RAIZ:lagra, x=M$
+radcan(RAIZ), numer;
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+radcan(RAIZ^^2-M), numer;
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: section start ]
+
+   [wxMaxima: section end   ] */
+
+
+/* [wxMaxima: input   start ] */
+f(x):=exp(x);
+kill(x);
+x[j]:=j;
+kill(l);
+l[i](x):=product(if i=j then 1 else (x-x[j])/(x[i]-x[j]),j, 0, 10);
+f(x[7]);
+HOLA:sum(f(x[i])*l[i](x), i, 0, 10);
+lagra:HOLA, expand;
+
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+wxplot2d([HOLA], [x, 0, 10]);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+lagrange(f, lista) := (block(lon:length(lista), kill(l, x),
+    l[i](x):=product(if i=j then 1 else (x-lista[j])/(lista[i]-lista[j]), j, 1, lon),
+        sum(f(lista[i])*l[i](x), i, 1, lon)));
+napoleon:lagrange(exp, makelist(k , k, 0, 10));
+wxplot2d([napoleon], [x, 0, 10]);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: subsect start ]
+Diferencias Divididas
+   [wxMaxima: subsect end   ] */
+
+
+
+/* Old versions of Maxima abort on loading files that end in a comment. */
+"Created with wxMaxima 22.04.0"$
