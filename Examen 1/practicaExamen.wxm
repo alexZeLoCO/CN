@@ -1,0 +1,339 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 22.04.0 ] */
+/* [wxMaxima: input   start ] */
+sumar_lista(lis):= if length(lis) = 0
+then    0
+else first(lis)+sumar_lista(rest(lis));
+sumar_lista([1, 2, 3,4]);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+remdef(T);
+T[val] := if val <= 0
+    then 1
+    else val * (T[val - 1] + T[val - 2]);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+T[3];
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+suma (lis) := 
+if (length(lis) = 0)
+then 0
+else (first(lis) + suma(rest(lis)));
+
+sumaProducto(lis) := 
+if (length(lis) = 0)
+then 1
+else
+if listp(first(lis))
+then suma(first(lis)) * sumaProducto(rest(lis))
+else first(lis) * sumaProducto(rest(lis));
+
+sumaProducto([[1, 2], 2, [2, 3]]);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+find_root(x-1, x, -2, 2);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+append([1, 2], [3]);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+napoleon: matrix( [1, 2, 3], [0, 0, 0], [3, 2, 1]);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+determinant(napoleon);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+/* Lambda foo */
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+operator(foo, x):=foo(x);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+operator(lambda([x],
+    x^2+1), 2);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+/* Abstract solver*/
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+/**
+ *  @param foo Función a resolver con métodos numéricos
+ *  @param a Valor abscisa inicial
+ *  @param b Valor bascisa final
+ *  @param iters Número de iteraciones a realizar
+ *  @param _next Función para calcular siguiente punto (Bisección, Falsi, ...)
+ *
+ * Si existe una raíz única entre a y b, se calculará.
+ *
+ *  @returns int Raíz de foo entre a y b
+ */
+solver(foo, a, b, iters, _next):=
+if iters <= 1
+then _next(a, b, foo)
+else 
+if foo(a) * foo(_next(a, b, foo)) < 0
+then solver (foo, a, _next(a, b, foo), iters-1, _next)
+else
+solver (foo, _next(a, b, foo), b, iters-1, _next)$
+
+/**
+ * @param a Valor abscisa inicial
+ * @param b Valor abscisa final
+ * @param err Error máximo permitido
+ * 
+ * Calculará el número de iteraciones de bisección necesarias para calcular la raíz de una función con un error máximo dado
+ * 
+ * @returns float número de iteraciones
+ */
+itersBis(a, b, err):=log((b-a)/err) / log(2)$
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+find_root(lambda ( [x], x*%e^x-1 ), x, -1, 1);
+solver(lambda ( [x], x*%e^x-1 ), -1, 1, itersBis(-1, 1, 10^-5), lambda([a, b, foo], (b+a)/2)), numer;
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: section start ]
+Lunes
+   [wxMaxima: section end   ] */
+
+
+/* [wxMaxima: input   start ] */
+/* 1.1 */;
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+sumar_lista(lista):=
+if length (lista) = 0
+then 0
+else
+first(lista) + sumar_lista (rest(lista))$
+sumar_lista([1, 2, 3, 4]);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+max_lista(lista):=
+if length (lista) = 0
+then 0
+else
+max(first(lista), max_lista(rest(lista)))$
+max_lista([1, 2, 3, 4]);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+min_lista(lista) :=
+if length (lista) = 1
+then first(lista)
+else
+min(first(lista), min_lista(rest(lista)))$
+min_lista([1, 2, 3, 4]);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+quita(elem, lista) :=
+if length(lista) = 0
+then []
+else
+if first(lista) = elem
+then quita(elem, rest(lista))
+else
+append(makelist(first(lista)), quita(elem, rest(lista)))$
+quita(1, [1, 2, 5, 1, 1, 7]);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+/* 1.2 */
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+T[n]:=
+if n < 3
+then 1
+else float(float(T[n-1]) + float(T[n-2]) + float(T[n-3]));
+float(T[10^3]);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+/* 1.3 */
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+vuelta(lista) :=
+if length(lista) = 0
+then []
+else
+if listp(first(lista))
+then append(vuelta(rest(lista)), makelist(vuelta(first(lista))))
+else
+append(vuelta(rest(lista)), makelist(first(lista)))$
+vuelta([1, [1, 2], [1, [3, 4, [5, 6]]], 5]);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+/* 1.4 */
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+y(z) := find_root(%e^x*x^2 - z = 0, x, -1*z, 1*z);
+y(%e);
+y(%pi);
+Y: makelist(y(z), z, 0, 4);
+wxplot2d([['discrete, Y]], [z,0,4])$
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+/* 1.6 */
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+M(n):=determinant(genmatrix(lambda([i, j], i^j + j^i), n))$
+makelist(M(n), n, 1, 10);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+/* 1.7 */
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+foo(x):=x*sin(x)-1/3$
+wxplot2d([foo], [x, 0, 1]);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+solver(lambda([x], x*sin(x)-1/3), 0, 1, itersBis(0, 1, 5*10^-50), lambda([a, b, foo], (b+a)/2)), numer;
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+/* 1.8 */
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+wxplot2d([x^2-cos(x)], [x, 0, 1]);
+solver(lambda([x], x^2-cos(x)), 0, 1, itersBis(0, 1, 5*10^-5), lambda([a, b, foo], (b+a)/2)), numer;
+cos(solver(lambda([x], x^2-cos(x)), 0, 1, itersBis(0, 1, 5*10^-100), lambda([a, b, foo], (b+a)/2))), numer;
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+/* 1.9 */
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+f(x, y, z):= [1/5 * (y + z + 1), 1/5 * (x + y^2 + z), 1/5 * (x + y + z^2)];
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+hallaFijo(punto, foo):=
+if foo(punto[1], punto[2], punto[3]) = punto
+    or (foo(punto[1], punto[2], punto[3]) - punto < 10^-10)
+then punto
+else
+hallaFijo(foo(punto[1], punto[2], punto[3]), foo)$
+hallaFijo([0, 0, 0], f);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+hallaFijo([1, 1, 1], f);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+absoluto(op, a):=
+op(a);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+ganancia(n, k):=
+if (n=k) 
+then 0 
+else 
+1/n*max(k+1, ganancia(n, k+1)) + (1-1/n)*ganancia(n, k+1)$
+
+remdef(beneficio)$
+beneficio[n, k]:=
+if (n=k) 
+then 0 
+else 
+/*
+ * 1/n = probabilidad blanca {
+ *      k+1 = beneficio si se sale
+ *      beneficio[n, k+1] = recursividad, repetición del juego con el mismo nº bolas (n) y una iteración más (k + 1)
+ * }
+ * (1 - 1/n) = probabilidad negra ==> repetición del juego con el mismo nº bolas (n) y una iteración más (k + 1)
+ */
+float (1/n * max(k+1, beneficio[n, k+1]) + (1-1/n)*beneficio[n, k+1])$
+
+ganancia(1,0);
+ganancia(10, 0), numer;
+beneficio[1,0];
+beneficio[100, 0];
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+/**
+ * @ param n Nº bolas
+ * @ param k Iteraciones
+ * @ param loss Valor ganado si se pierde
+ * @ param pago Función de lo que se gana
+ */
+bolas(n, k, loss, pago):=
+if n=k
+then loss
+else
+float(1/n * max (pago(k), bolas(n, k+1, loss, pago)) + (1-1/n)*bolas(n, k+1, loss, pago))$
+bolas(10, 0, 0, lambda([k], 2*(k+1)));
+/* [wxMaxima: input   end   ] */
+
+
+
+/* Old versions of Maxima abort on loading files that end in a comment. */
+"Created with wxMaxima 22.04.0"$

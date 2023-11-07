@@ -1,0 +1,26 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 22.04.0 ] */
+/* [wxMaxima: input   start ] */
+cErr(x) :=sqrt(sum(x[i]^2, i, 1, length(x)))$
+
+newtonVariables (foo, root, err) :=
+block(
+while (cErr(foo(root))>err) do [
+root:transpose(root+invert(subst(makelist(x[i]=root[i], i, 1, length(root)), jacobian(foo(x), makelist(x[i], i, 1, length(root))))).-foo(root))[1]
+], return(root))$
+newtonVariables(lambda([x], [x[1]^3+1, x[2]^2+2, x[3]+3]), [1, 2, 3], 0.5);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+nRec (foo, root, iters) :=
+if (iters > 0)
+then nRec (foo, transpose(root+invert(subst(makelist(x[i]=root[i], i, 1, length(root)), jacobian(foo(x), makelist(x[i], i, 1, length(root))))).-foo(root))[1], iters-1)
+else root$
+nRec(lambda([x], [x[1]^3+1, x[2]^2+2, x[3]+3]), [1, 2, 3], 1000), numer;
+/* [wxMaxima: input   end   ] */
+
+
+
+/* Old versions of Maxima abort on loading files that end in a comment. */
+"Created with wxMaxima 22.04.0"$
