@@ -1,0 +1,169 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 22.04.0 ] */
+/* [wxMaxima: section start ]
+Integración Numérica
+   [wxMaxima: section end   ] */
+
+
+/* [wxMaxima: input   start ] */
+f(x):=sin(x)/x$
+integrate(f(x),x);
+integrate(f(x), x, 0, 1);
+quad_qags(f(x), x, 0, 1);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+g(x):=cos(x)^3+sin(x)^10$
+integrate(g(x), x);
+integrate(g(x), x, 0, 1);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+h(x):=sin(sin(x))$
+integrate(h(x), x);
+integrate(h(x), x, 0, 1); /* No calculable */
+quad_qags(h(x), x, 0,1); /* [aprox, cota,  , cod_salida] */
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+fpprec: 100$
+fpprintprec: 50$
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: subsect start ]
+Rectángulo
+   [wxMaxima: subsect end   ] */
+
+
+/* [wxMaxima: input   start ] */
+f1(x) := sin(x)$
+f2(x) := if (x=0) then 1 else sin(x)/x$
+EX1: integrate(f1(x), x, 0, 1), bfloat;
+EX2: 946083070367183014941353313823179/1000000000000000000000000000000000;
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+dch(f, a, b, n) :=
+sum(bfloat(f(a+k*((b-a)/n))*((b-a)/n)), k, 1, n)$
+izq(f, a, b, n) :=
+sum(bfloat(f(a+k*((b-a)/n))*((b-a)/n)), k, 0, n-1)$
+dch(f2, 0, 1, 100000), numer;
+izq(f2, 0.001, 1, 10000), numer;
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: subsect start ]
+Trapecio
+   [wxMaxima: subsect end   ] */
+
+
+/* [wxMaxima: input   start ] */
+trapecio(f, a, b, n) :=
+((b-a)/n)/2 * (f(a) + f(b) + 2*sum(bfloat(f(a+j*((b-a)/n))), j, 1, n-1))$
+trapecio(f2, 0.001, 1, 10000), numer;
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: subsect start ]
+Simpson
+   [wxMaxima: subsect end   ] */
+
+
+/* [wxMaxima: input   start ] */
+simpson(f, a, b, n) :=
+((b-a)/n)/3 * (f(a) + 2*sum(f(a+2*j*(b-a)/n), j, 1, n/2-1) + 4*sum(f(a+(2*j-1)*(b-a)/n), j, 1, n/2) + f(b))$
+simpson(f2, 0.001, 1, 1000), numer;
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+0.2*(b-a)*(b-a)/n^4/180, [n=10000, a=0, b=1];
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: section start ]
+Multiplicadores de Lagrange
+   [wxMaxima: section end   ] */
+
+
+/* [wxMaxima: input   start ] */
+kill(all);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+F(x, y) := 1+y^(2)+x^(2)+4* x+x*y+((x^(4))/(8))$
+wxdraw2d(implicit(F(x,y) = 0, x, -5, 5, y, -5, 5));
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+dist(x, y) := x^2+y^2;
+G(x, y, a) := dist(x,y)+a*F(x,y);
+Gx:diff(G(x, y, a), x, 1);
+Gy:diff(G(x, y, a),y,1);
+Ga:diff(G(x, y, a), a, 1);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+sol:algsys([Gx=0, Gy, Ga], [x,y,a]);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+x^2+y^2, sol[1]; /* Tangente lejos */
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+x^2+y^2, last(sol); /* Tangente cerca */
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: subsect start ]
+
+   [wxMaxima: subsect end   ] */
+
+
+/* [wxMaxima: input   start ] */
+F(x,y):=y^(2)+x^(2)+4*x+1-sin(x^(2)+x*y+y)$
+wxdraw2d(implicit(F(x,y)=0, x, -5, 5, y, -5, 5));
+dist(x, y) := x^2+y^2$
+G(x, y, a) := dist(x,y)+a*F(x,y)$
+Gx:diff(G(x, y, a), x, 1)$
+Gy:diff(G(x, y, a),y,1)$
+Ga:diff(G(x, y, a), a, 1)$
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+define(H(x, y, a), [Gx, Gy, Ga])$
+Hvec(x):=H(x[1], x[2], x[3]);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+define(jaco(x,y,a),jacobian(H(x,y,a),[x,y,a]))$
+newton(vector):=float(block(V:vector,J:jaco(V[1],V[2],V[3]),
+    casi:vector-invert(J).Hvec(vector),transpose(casi)[1]))$
+/* El (-4, 0.5) es una posición cercana a lo que parece ser el punto más lejano donde esta la circunf. tang. */
+veces(n):=if n=0 then [-4, 0.5, 2] else newton(veces(n-1))$
+veces(80);
+/* [x, y, a], 'a' no es relevante */
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+3.947146971451481^2+0.4487837782858274^2 /* Distancia desde el centro */;
+/* [wxMaxima: input   end   ] */
+
+
+
+/* Old versions of Maxima abort on loading files that end in a comment. */
+"Created with wxMaxima 22.04.0"$
