@@ -1,0 +1,152 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 22.04.0 ] */
+/* [wxMaxima: section start ]
+Matriz
+   [wxMaxima: section end   ] */
+
+
+/* [wxMaxima: input   start ] */
+makeMatrix(n):=
+genmatrix(lambda([i, j] ,
+    if abs(i-j)>1
+    then 0
+    else i+j), n)$
+makeMatrix(10);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+makelist(makeMatrix(n), n, 2, 10);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: section start ]
+Resolución de Sistemas Lineales
+   [wxMaxima: section end   ] */
+
+
+/* [wxMaxima: input   start ] */
+M(n):=
+genmatrix(lambda([i,j], i^j*(i-j)), n)$
+b(n):=makelist(k, k, 1, n)$
+M(6);
+b(6);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+makelist(determinant(M(k)), k, 1, 10);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+num(n):=floor(log(n)/log(10))+1$    /* Num de cifras de n */
+makelist(num(determinant(M(k))), k, 2, 10);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+addcol(M(6), b(6));
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+invert(M(6)).b(6);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+makelist(x[k]=(invert(M(6)).b(6))[k, 1], k, 1, 6);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+coninversa(M, b):=makelist(x[k]=(invert(M).b)[k, 1], k, 1, length(b))$
+coninversa(M(6), b(6));
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+absolute_real_time(); /* Unix: Segundos desde 01/01/1970 */
+tiempo(n):=block(t0:absolute_real_time(), sol:coninversa(M(n), b(n)), t1:absolute_real_time(), [t1-t0, sol])$
+tiempo(40);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: section start ]
+linsolve
+   [wxMaxima: section end   ] */
+
+
+/* [wxMaxima: input   start ] */
+linsolve([x+y+7*z=4, x+y=0, x-y-8*x=0, x-y-8*z=9], [x, y, z]); /* Incompatible ==> [] */
+linsolve([x + y + y*z+t=4, x+y+t+h=0, x-y-8*z-y=0], [x, y, z, t, h]); /* Deja 't' y 'h' como param */
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+/* Para operar con linsolve necesitamos una lista de ecuaciones [eq1, eq2, ..., eqn] y una de incógnitas [x1, x2, ..., xn] */
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+incognitas(n):=makelist(x[k], k, 1, n)$ /* lista de incognitas */
+incognitas(6);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+ecu:(M(6).incognitas(6)-b(6)); /* No admitido porque es una matriz */
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+ecut:transpose(ecu); /* No admitido */
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+ecut[1]; /* Lista de ecuaciones */
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+ecuaciones(M, b):=first(transpose(M.incognitas(length(b))))$ /* Ecuaciones compactas */
+ecuaciones(M(6), b(6));
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+consolve(M, b):=linsolve(ecuaciones(M, b), incognitas(length(b)))$ /* FIXME */
+consolve(M(17), b(17));
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: section start ]
+Escalonada
+   [wxMaxima: section end   ] */
+
+
+/* [wxMaxima: input   start ] */
+escalonar(a, b):=echelon(addcol(a, b))$
+escalonar(M(6), b(6));
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+/* Resuelve la fila i de la Matriz de coef A con independientes b */
+solveUna(A,b,i):=block(Er:escalonar(A,b),dim:length(b),if i=dim then Er[i,i+1]  else Er[i,dim+1]  - sum(Er[i,k]*solveUna(A,b,k), k,  i+1,dim))$
+solveUna(M(8), b(8), 1);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+/* Resuelve toda la matriz */
+solve(A, b):=makelist(solveUna(A, b, x), x, 1, length(b))$
+solve(M(8), b(8));
+/* [wxMaxima: input   end   ] */
+
+
+
+/* Old versions of Maxima abort on loading files that end in a comment. */
+"Created with wxMaxima 22.04.0"$

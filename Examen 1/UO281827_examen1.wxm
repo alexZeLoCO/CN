@@ -1,0 +1,243 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 22.04.0 ] */
+/* [wxMaxima: section start ]
+Ejercicio 1.1
+   [wxMaxima: section end   ] */
+
+
+/* [wxMaxima: input   start ] */
+sumar_lista(lista):=
+if length(lista) = 0    /* No hay elementos */
+then 0
+else /* sumar_lista(lista) = first(lista) * sumar_lista(rest(lista)) */
+first(lista) + sumar_lista(rest(lista))$
+sumar_lista([1, 2, 3, 4]);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+max_lista(lista) :=
+if length (lista) = 0   /* No hay elementos */
+then 0
+else /* max_lista(lista) = max (first(lista), max_lista (rest(lista))) */
+max(first(lista), max_lista(rest(lista)))$
+max_lista([1, 2, 3, 4]);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+min_lista(lista) :=
+if length (lista) = 1   /* Hay un elemento */
+then first(lista)
+else    /* min_lista(lista) = min (first(lista), min_lista(rest(lista))) */
+min (first(lista), min_lista(rest(lista)))$
+min_lista([1, 2, 3, 4]);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+quita_1(lista) :=
+if length(lista) = 0 /* No hay elementos ==> No hay '1' */
+then lista /* Retorno la lista vacía */
+else /* Puede haber un elemento '1' */
+if first(lista) = 1 /* Si es un '1' */
+then quita_1(rest(lista)) /* Lo omito */
+else /* No es un '1' */
+append (makelist(first(lista)), quita_1(rest(lista)))$ /* Lo incluyo */
+quita_1([1, 2, 5, 1, 1 ,7]);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: section start ]
+Ejercicio 1.2
+   [wxMaxima: section end   ] */
+
+
+/* [wxMaxima: input   start ] */
+T(n) :=
+if n<3
+then 1
+else
+T(n-1) + T(n-2) + T(n-3)$
+makelist(T(n), n, 1, 10);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+/* Tribonacci numbers */
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: section start ]
+Ejercicio 1.3
+   [wxMaxima: section end   ] */
+
+
+/* [wxMaxima: input   start ] */
+vuelta(lista) :=
+if length(lista) = 0    /* Lista vacía */
+then lista  /* Retorno la lista vacía */
+else    /* La lista no es vacía, puede tener un first(lista) que sea un átomo ú otra lista */
+if listp(first(lista))  /* first(lista) es una lista */
+then append(vuelta(rest(lista)), makelist(vuelta(first(lista))))
+else    /* first(lista) es un átomo */
+append (vuelta(rest(lista)), makelist(first(lista)))$
+vuelta([1, [1, 2], [1, [3, 4, [5, 6]]], 5]);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: section start ]
+Ejercicio 1.4
+   [wxMaxima: section end   ] */
+
+
+/* [wxMaxima: input   start ] */
+y(z) := find_root(%e^x*x^2-z, x, 0, abs(1*z))$
+/* 1.4 / Apartado 1 */
+y(%e);
+y(%pi);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+/* 1.4 / Apartado 2 */
+L:makelist(y(z), z, 0, 4);
+wxplot2d([['discrete, L]], [x,-5,5]);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+/* 1.4 / Apartado 3 */
+y(1);
+wxplot2d([%e^x*x^2-1], [x, -1, 1]);
+/*  Decimal expansion of solution to exp(-x) = x^2 */
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: section start ]
+Ejercicio 1.5
+   [wxMaxima: section end   ] */
+
+
+/* [wxMaxima: input   start ] */
+bolas [ n , k , loss , pago ] :=
+if n = k    /* Fin de juego */
+then loss   /* Pérdidas */
+else    /* Juego en marcha */
+/* Máximo entre dejar de jugar ó seguir jugando en caso de ganar, ó seguir jugando obligatoriamente en caso de perder */
+float(1/n · max(pago(k), bolas[n, k+1, loss, pago]) + (1−1/n) · bolas [n, k+1, loss, pago]) $
+
+bolas[100, 0, -100, lambda([k], k^2)];
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: section start ]
+Ejercicio 1.6
+   [wxMaxima: section end   ] */
+
+
+/* [wxMaxima: input   start ] */
+M(n) := determinant(genmatrix(lambda([i, j], i^j+j^i), n))$
+makelist(M(n), n, 1, 10);
+/* Determinant of the n X n matrix m(i,j)=i^j+j^i */
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: section start ]
+Ejercicio 1.7
+   [wxMaxima: section end   ] */
+
+
+/* [wxMaxima: input   start ] */
+/* 50 cifras aproximadas ==> Error <= 5*10^-50 */
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+/* Calcula aproximadamente */
+kill(all)$
+solver (foo, a, b, iters, _next) :=
+if iters <= 1
+then _next ( a, b, foo)
+else
+if foo (a) · foo ( _next( a , b , foo )) < 0
+then solver (foo, a, _next(a, b, foo), iters − 1, _next)
+else
+solver (foo, _next (a, b, foo), b, iters − 1, _next) $
+
+/* Calcula nº iteraciones necesarias en bisección para alcanzar un error */
+itersBisec(a, b, err) :=
+float(log((b-a)/err)/log(2))$
+
+solver(lambda([x], x*sin(x)-1/3), 0, 1, itersBisec(0, 1, 5*10^-50), lambda([a, b, foo], (b+a)/2)), numer;
+wxplot2d([x*sin(x)-1/3], [x, 0, 1]);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: section start ]
+Ejercicio 1.8
+   [wxMaxima: section end   ] */
+
+
+/* [wxMaxima: input   start ] */
+solver(lambda([x], x^2-cos(x)), 0, 1, itersBisec(0, 1, 5*10^-50), lambda([a, b, foo], (b+a)/2)), numer;
+cos(find_root(x^2=cos(x), x, 0, 1)), numer;
+wxplot2d([x^2-cos(x)], [x, -0, 1]);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: section start ]
+Ejercicio 1.9
+   [wxMaxima: section end   ] */
+
+
+/* [wxMaxima: input   start ] */
+/* Función */
+f(vect) := [
+    1/5*(vect[2] + vect[3] + 1),
+    1/5*(vect[1] + vect[2]^2 + vect[3]),
+    1/5*(vect[1] + vect[2] + vect[3]^2)
+]$
+
+/* Retorna la normal del vector */
+norma(vect) :=
+sqrt(vect[1]^2 + vect[2]^2 + vect[3]^2)$
+
+/* Utiliza método de punto fijo hasta que la norma de la semilla llegue a un valor cota */
+hallaPuntoFijo(foo, semilla, cota) :=
+if norma(foo(semilla) - semilla) < cota
+then semilla
+else
+hallaPuntoFijo(foo, float(foo(semilla)), cota)$
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+hallaPuntoFijo(f, [1, 1, 1], 10^-10);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: section start ]
+Ejercicio 1.10
+   [wxMaxima: section end   ] */
+
+
+/* [wxMaxima: comment start ]
+Ejercicios concluidos con éxito:
+--> 1.1                             ~~> Similar a ejercicios impartidos en otras asignaturas (e.g. Paradigmas, Programación Funcional)
+--> 1.2                             ~~> Similar a ejercicios impartidos en otras asignaturas (e.g. Paradigmas, Programación Funcional)
+--> 1.3                             ~~> Similar a ejercicios impartidos en otras asignaturas (e.g. Paradigmas, Programación Funcional)
+--> 1.4 (apartados 1 y 3)    ~~> Apartados 1 y 3 cortos y fáciles de replicar
+--> 1.6                             ~~> Operación fácil de replicar una vez resuelta por primera vez
+--> 1.9 (apartado 2)           ~~> Algoritmo directo e iterativo
+Disponiendo de 15 minutos para cada ejercicio:
+--> 1.1
+--> 1.2
+--> 1.3
+--> 1.6
+   [wxMaxima: comment end   ] */
+
+
+
+/* Old versions of Maxima abort on loading files that end in a comment. */
+"Created with wxMaxima 22.04.0"$

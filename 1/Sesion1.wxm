@@ -1,0 +1,200 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 22.04.0 ] */
+/* [wxMaxima: input   start ] */
+f1(1);
+f2(1);
+f3(1);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+diff(f2(x),x,1);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+df2(x):= (x^x)^x*(x*(log(x)+1)+x*log(x));
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+define(df3(x), diff(f3(x), x, 1));
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+df2(1);
+df3(1);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: comment start ]
+y=f(x0) + (x - x0) * f'(x0)
+   [wxMaxima: comment end   ] */
+
+
+/* [wxMaxima: input   start ] */
+pepe:f2(1) + (x - 1) * df2(1);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+wxplot2d([f2, f3, x], [x, 0.5, 1.5]);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+find_root(f2(x)=f3(x), x, 1.8, 2.2);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+f2(2);
+f3(2);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+curva1:(x^2+y^2-1)^3-x^2*y^3 = 0;
+curva2:y=2*x^2;
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+wxdraw2d(
+    /*
+     * Añadir un implicit(<curva>, <variable>, <inicio>, <fin>, <variable>, <inicio>, <fin>).
+     * Separar por , los implicit si hay varios.
+     */
+    implicit(curva1, x,-2,2, y,-2,2),
+    implicit(curva2, x,-2,2, y,-2,2)
+)$;
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+realonly:true;  /* Retorna sólo soluciones reales */
+algsys([curva1, curva2], [x, y]);   /* Encuentra puntos de corte */
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+ /* factorización prima de un número. Si el valor que retorna es igual al introducido, es primo. */
+factor(53777253);
+factor(660510199);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+f(x):=sin(x+1)^2 + sin(x)*cos(x)^13;    /* Función original */
+pepe:diff(f(x), x, 1);  /* Derivada */
+inte:integrate(pepe, x);   /* Primitiva */
+f(x)-inte,x=7,numer; /* Diferencia, valor, mostrar cantidad aproximada en lugar de fracción exacta. */
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+trigsimp(-cos(x+1)^2-(13*((5*(4*x-sin(8*x)/2))/256+(5*((4*x-sin(8*x)/2)/4+sin(4*x)^3/6))/256+(2*x-sin(4*x)/2)/64+(15*sin(2*x)^7-42*sin(2*x)^5+35*sin(2*x)^3)/3360-(3*sin(2*x)^5-5*sin(2*x)^3)/48+(5*sin(2*x)^3)/96))/8+((7*((3*(sin(8*x)/2+4*x))/16+(sin(4*x)-sin(4*x)^3/3)/8+(3*sin(4*x))/8+x/2))/256+(35*((sin(8*x)/2+4*x)/8+sin(4*x)/2+x))/256+(21*(sin(4*x)/2+2*x))/256+(-sin(2*x)^7/7+(3*sin(2*x)^5)/5-sin(2*x)^3+sin(2*x))/128+(21*(sin(2*x)^5/5-(2*sin(2*x)^3)/3+sin(2*x)))/128+(35*(sin(2*x)-sin(2*x)^3/3))/128+(7*sin(2*x))/128+x/64)/2);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+trigsimp(%);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+trigreduce(%);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+pepa:integrate(f(x), x);
+f(x)-diff(pepa, x, 1);
+trigsimp(%)$
+trigreduce(%);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+f(0), numer;
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+fpprec : 200$   /* 200 dígitos de precisión */
+fpprintprec: 100$   /* mostrar 100 dígitos */
+set_display('ascii)$    /* formato */
+f(0), numer$ /* operación */
+bfloat(%); /* mostrar como big float */
+set_display('xml)$ /* restaurar formato */
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+sf(n):=product(k!, k, 1, n);    /* Superfactorial de n - Productorio de los factoriales */
+makelist(sf(k), k, 1, 10);  /* Construir lista */
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+m(n):=genmatrix(lambda([i,j], i^j), n, n)$
+m(6);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+makelist(determinant(m(k)), k, 1, 10);  /* Nota: éstos son los mismos números que los de la lista del superfactorial */
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+exacto:nusum(1/(k^2), k, 1, inf), simpsum;   /* Sumatorio serie divergente exacto. */
+aprox:nusum(1/(k^2), k, 1, 10^3), numer; /* Sumatorio serie divergente, primeros 1000 valores computados. */
+/* OEIS la reconoce si se introduce 1.6449 */
+absoluto:abs(exacto-aprox), numer;   /* Error absoluto */
+relativo:absoluto/exacto, numer;    /* Error relativo */
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+log10(x):=log(x)/log(10);
+log10(1001), numer;
+1+floor(%);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+num_cifras(n):=1+floor(log10(n))$   /* Retorna el número de cifras de un número dado */
+num_cifras(1234);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+num_cifras(999^1000);   /* El número 999^1000 tiene 3000 cifras */
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+mod(660510199,10^(num_cifras(660510199)));
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+power_mod(660510199,53777253,10^2);  /* Retorna tantas últimas cifras como exponente tenga el tercer parámetro del <primerParam ^ segundoParam> */
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+makelist(random(99)+1, k, 1, 100);  /* Genera una lista de 100 valores aleatorios entre 1 y 100 (ambos incluidos) */
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+sum(random(101), k, 1, 10^6)/10^6, numer;
+/* [wxMaxima: input   end   ] */
+
+
+
+/* Old versions of Maxima abort on loading files that end in a comment. */
+"Created with wxMaxima 22.04.0"$

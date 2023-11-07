@@ -1,0 +1,36 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 22.04.0 ] */
+/* [wxMaxima: input   start ] */
+ganancia(n, k):=if (n=k) then 0 else 1/n*max(k+1, ganancia(n, k+1)) + (1-1/n)*ganancia(n, k+1)$
+remdef(beneficio)$
+beneficio[n, k]:=if (n=k) then 0 else float (1/n * max(k+1, beneficio[n, k+1]) + (1-1/n)*beneficio[n, k+1])$
+ganancia(1,0);
+beneficio[1,0];
+beneficio[100, 0];
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+beneficio[1000, 0] / 1000, numer;   /* Rehacer en MatLab. Operar un número lo suficientemente grande como para reconocer sucesión por oeis.org */
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+makelist(beneficio[100, k], k, 0, 100); /* Ganancias estimadas en iteraciones de 0 a 100 */
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+makelist(if beneficio[1000, k]>k then k else 0, k, 0, 1000); 
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+makelist(beneficio[1000, k], k, 1000, 0, -1);
+time(%);
+/* [wxMaxima: input   end   ] */
+
+
+
+/* Old versions of Maxima abort on loading files that end in a comment. */
+"Created with wxMaxima 22.04.0"$

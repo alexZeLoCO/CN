@@ -1,0 +1,239 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 22.04.0 ] */
+/* [wxMaxima: input   start ] */
+fpprec : 200; /* Numérico > Ajustar precisión real grande */
+fpprintprec : 20; /* Numérico > Ajustar precisión enseñada */
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+f(x):=x*%e^x-1;
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: section start ]
+Bisección
+   [wxMaxima: section end   ] */
+
+
+/* [wxMaxima: input   start ] */
+/* block (aliases ==> alias:valor, órdenes) */
+bisec(pareja):=block(a:pareja[1],b:pareja[2],c:(a+b)/2,if f(a)*f(c)<0 then [a,c] else [c,b]);
+bisec_TOL(tol):=block(aux:[0,1], cuenta:0,
+    while abs(f(aux[1]))>tol do [     /* Mientras la imagen sea mayor que tolerancia */
+        aux:bisec(aux), cuenta:cuenta+1     /* Bisección */
+    ],
+    return ([aux[1], cuenta]));
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+bi:bisec_TOL(10^(-10));
+is (abs(f(bi[1]))<10^(-10));
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: section start ]
+Falsi
+   [wxMaxima: section end   ] */
+
+
+/* [wxMaxima: input   start ] */
+falsi(pareja):=block(a:pareja[1],b:pareja[2],c:(f(b)*a-b*f(a))/(f(b)-f(a)),if f(a)*f(c)<0 then [a,c] else [c,b]);
+falsi_TOL(tol):=block(aux:[0,1], cuenta:0,
+    while bfloat(abs(f(aux[1])))>tol do [     /* Mientras la imagen sea mayor que tolerancia */
+        aux:bfloat(falsi(aux)), cuenta:cuenta+1     /* Falsi */
+    ],
+    return ([aux[1], cuenta]));
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+fa:falsi_TOL(10^(-10));
+is(abs(f(fa[1]))<10^(-10));
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: section start ]
+Newton-Raphson
+   [wxMaxima: section end   ] */
+
+
+/* [wxMaxima: input   start ] */
+define(df(x), diff(f(x), x, 1));    /* foo */
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+newton(tol):=block(ini:1/2, cuenta:0,
+    while abs(f(ini))>tol do [      /* Mientras la imagen sea mayor que tolerancia */
+        ini:ini-f(ini)/df(ini), cuenta:cuenta+1     /* Newton-Raphson */
+    ], 
+return ([ini, cuenta]));
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+newton(10^(-10)), float;
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: section start ]
+Secante
+   [wxMaxima: section end   ] */
+
+
+/* [wxMaxima: input   start ] */
+seca(n):= if n=0    /* Función normal | Poco usable por la recursividad */
+                    then 1/2 
+                elseif n=1 
+                    then 1 
+                else (seca(n-1)-f(seca(n-1))*(seca(n-1)-seca(n-2))/(f(seca(n-1))-f(seca(n-2))));
+
+seca[n]:= if n=0    /* Función bfloat y corchetes */
+                    then 1/2
+                elseif n=1 
+                    then 1 
+                else bfloat(seca[n-1]-f(seca[n-1])*(seca[n-1]-seca[n-2])/(f(seca[n-1])-f(seca[n-2])));
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+seca(5)$ /* Resultado muy largo */
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+secante(tol):=block(i:0,
+    while abs(f(seca[i]))>tol do [      /* Mientras la imagen sea mayor que tolerancia */
+        i:i+1     /* Secante */
+    ], 
+return (seca[i]));
+secante(10^(-10));
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: section start ]
+Punto Fijo
+   [wxMaxima: section end   ] */
+
+
+/* [wxMaxima: input   start ] */
+g(x):=x-f(x);   /* Foo iteración */
+
+x0:1/2;     /* Valor inicial */
+T(n):=if n=0
+                then x0
+            else 
+                g(float(T(n-1)));
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+makelist(T(k), k, 1, 22);   /* Se esperaba un resultado similar a 0'5. Ninguno se aproxima */
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+T(202); /* No se aproxima ni con 202 iteraciones */
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+g(x):=x-f(x)/5;     /* Si se cambia la función, sí encontrará resultado */
+makelist(T(k),k,1,22);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+puntoFijo(tol):=block(ini:1/2, cuenta:0,
+    for i while abs(f(ini))>tol do [      /* Mientras la imagen sea mayor que tolerancia */
+        ini:float(g(ini)), cuenta:cuenta+1     /* Punto Fijo */
+    ], 
+return ([ini, cuenta]));
+puntoFijo(10^(-10));
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+g(x):=2*sin(x); /* Foo objetivo. Hallar raíz con 100 dígitos de precisión */
+wxplot2d([g, x], [x, 1.5, 2]);  /* La raíz ronda 1'9 */
+wxplot2d([abs(2*cos(x)), 1], [x, 1.5, 2]);  /* Para x=2, |g'(x)| es menor que 1 */
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+x0:3/4; /* Punto de partida p.e 3/4 */
+x1:g(x0);
+k:85/100; /* |g'(2)| */
+pepe:bfloat(abs(x1 - x0));
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+punto_fijo(tol):=block(ini:3/4, cuenta=0,
+while (k^cuenta)/(1-k)*pepe>tol do [
+    ini:float(g(ini)), cuenta:cuenta+1
+] , [ini, cuenta]);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+punto_fijo(10^(-100));  /* ? */
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: section start ]
+Sistema de Ecuaciones Lineales ~ SEL
+   [wxMaxima: section end   ] */
+
+
+/* [wxMaxima: input   start ] */
+f(vector):=block(a:vector[1], b:vector[2], c:vector[3], [a^2/3+1/3, a+b+c/4, a^2-b^2+c^2/4]);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+ecu:f([x,y,z])-[x,y,z];  /* SEL */
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+algsys(ecu, [x,y,z])    /* Ecuaciones > Resolver sistema algebraico || algsys([<eq1, eq2, ..., eqN>], [<var1>, <var2>, ..., <varN>]); (iguala a 0 por defecto)*/;
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+X[n]:=if n=0
+                then [0,0,0]
+            else
+                bfloat(f(X[n-1]));
+X[100];
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+X(n):=if n=0
+            then [2.61803, 6.688994377, -10.47213595]
+            else
+            bfloat(f(X(n-1)));
+X(100); /* Nota: resultado 1 es 3.819*10^-1 */
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+X(n):=if n=0 
+                then [random(1.0), random(1.0), random(1.0)]        /* Raíz aleatoria */
+        else f(X(n-1));
+X(100);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+M:makelist(X(100), k, 1, 100);  /* Lista de 100 salidas con raíces aleatorias. Nota: Todos los resultados tienden al mismo punto. */
+/* [wxMaxima: input   end   ] */
+
+
+
+/* Old versions of Maxima abort on loading files that end in a comment. */
+"Created with wxMaxima 22.04.0"$

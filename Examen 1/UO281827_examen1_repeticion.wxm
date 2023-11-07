@@ -1,0 +1,415 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 22.04.0 ] */
+/* [wxMaxima: section start ]
+Funciones Recursivas
+   [wxMaxima: section end   ] */
+
+
+/* [wxMaxima: subsect start ]
+Sumar_lista
+   [wxMaxima: subsect end   ] */
+
+
+/* [wxMaxima: input   start ] */
+sumar_lista(lista) :=
+if (length(lista) = 0)
+then 0
+else first(lista) + sumar_lista(rest(lista))$
+sumar_lista([1, 2, 3, 4]);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: subsect start ]
+Max_lista
+   [wxMaxima: subsect end   ] */
+
+
+/* [wxMaxima: input   start ] */
+max_lista(lista) :=
+if (length(lista) = 0)
+then 0
+elseif (length(lista) = 1)
+then first(lista)
+elseif (first(lista) > max_lista(rest(lista)))
+then first(lista)
+else max_lista(rest(lista))$
+max_lista([-1, -2, -3, -4]);
+max_lista([]);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: subsect start ]
+Min_lista
+   [wxMaxima: subsect end   ] */
+
+
+/* [wxMaxima: input   start ] */
+min_lista(lista) :=
+if (length(lista) = 0)
+then 0
+elseif (length(lista) = 1)
+then first(lista)
+elseif (first(lista) < min_lista(rest(lista)))
+then first(lista)
+else min_lista(rest(lista))$
+min_lista([-1, 2, 3, -4]);
+min_lista([]);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: subsect start ]
+Quita_1
+   [wxMaxima: subsect end   ] */
+
+
+/* [wxMaxima: input   start ] */
+quita_1(lista) :=
+if (length(lista) = 0)
+then lista
+elseif (first(lista) = 1)
+then quita_1(rest(lista))
+else append(makelist(first(lista)), quita_1(rest(lista)))$
+quita_1([1, 2, 5, 1, 1, 7]);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: section start ]
+Recurrencia
+   [wxMaxima: section end   ] */
+
+
+/* [wxMaxima: subsect start ]
+Funcion
+   [wxMaxima: subsect end   ] */
+
+
+/* [wxMaxima: input   start ] */
+T(n):=
+if (n = 1)
+then 1
+else sum(k*T(k), k, 1, n-1)$
+T(10);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+T[n]:=
+if (n = 1)
+then 1
+else sum(k*T[k], k, 1, n-1)$
+T[10];
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: subsect start ]
+Lista
+   [wxMaxima: subsect end   ] */
+
+
+/* [wxMaxima: input   start ] */
+makelist(T[k], k, 1, 20);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+/* Order of alternating group A_n, or number of even permutations of n letters. (Formerly M2933 N1179) */
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: section start ]
+Sumatodo
+   [wxMaxima: section end   ] */
+
+
+/* [wxMaxima: input   start ] */
+sumatodo(lista) :=
+if (length(lista) = 0)
+then 0
+elseif (listp(first(lista)))
+then sumatodo(first(lista)) + sumatodo(rest(lista))
+else first(lista) + sumatodo(rest(lista))$
+sumatodo([1, [1, 2], [1, [3, 4, [5, 6]]], 5]);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: section start ]
+Raiz de la ecuacion...
+   [wxMaxima: section end   ] */
+
+
+/* [wxMaxima: input   start ] */
+Y(z):=find_root(x^3*%e^x-z, x, -5*z, 5*z)$
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: subsect start ]
+Y(%e) e Y(%pi)
+   [wxMaxima: subsect end   ] */
+
+
+/* [wxMaxima: input   start ] */
+Y(%e);
+Y(%pi);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: subsect start ]
+Grafica
+   [wxMaxima: subsect end   ] */
+
+
+/* [wxMaxima: input   start ] */
+wxplot2d([['discrete, makelist(Y(z), z, 0, 4), []]], [x,0,4])$
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: subsect start ]
+Y(1)
+   [wxMaxima: subsect end   ] */
+
+
+/* [wxMaxima: input   start ] */
+Y(1);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+/* Decimal expansion of solution to exp(-x) = x^3. (A126584) */;
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: subsect start ]
+Raiz de Y(x)=1
+   [wxMaxima: subsect end   ] */
+
+
+/* [wxMaxima: input   start ] */
+find_root(Y(o)-1, o, 0, 3);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: section start ]
+Bolas
+   [wxMaxima: section end   ] */
+
+
+/* [wxMaxima: input   start ] */
+kill(bolas)$
+bolas[bolas, blancas, etapas, premio, perdida] :=
+if (etapas = 0)
+then perdida
+else float(blancas/bolas*max(premio(etapas), bolas[bolas, blancas, etapas-1, premio, perdida]) + (1-blancas/bolas)*bolas[bolas, blancas, etapas-1, premio, perdida])$
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: subsect start ]
+Ganancia media
+   [wxMaxima: subsect end   ] */
+
+
+/* [wxMaxima: input   start ] */
+bolas[100, 1, 100, lambda([k], k^2+k), -100];
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: subsect start ]
+Estrategia
+   [wxMaxima: subsect end   ] */
+
+
+/* [wxMaxima: input   start ] */
+makelist(bolas[100, 1, y, lambda([k], k^2+k), -100], y, 0, 100);
+wxplot2d([['discrete, makelist(bolas[100, 1, y, lambda([k], k^2+k), -100], y, 0, 100), []]], [x,0,100]);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+/* Recomendable detenerse tras la etapa 11 (Ganacia: 1997.97) */;
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: subsect start ]
+n=10^5 bolas
+   [wxMaxima: subsect end   ] */
+
+
+/* [wxMaxima: input   start ] */
+bolas[10^5, 1, 100, lambda([k], k^2+k), -100];
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: section start ]
+Matrices
+   [wxMaxima: section end   ] */
+
+
+/* [wxMaxima: subsect start ]
+M(n)
+   [wxMaxima: subsect end   ] */
+
+
+/* [wxMaxima: input   start ] */
+M(n):=
+makelist(genmatrix(lambda([i, j],
+    if (i=j)
+    then if (mod(i, 2)=0)
+        then i
+        else -i
+    else i+j), k), k, 1, n)$
+M(5);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: subsect start ]
+Determinantes
+   [wxMaxima: subsect end   ] */
+
+
+/* [wxMaxima: input   start ] */
+makelist(determinant(M(k)[k]), k, 1, 10);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: section start ]
+xsin(x)=1/3
+   [wxMaxima: section end   ] */
+
+
+/* [wxMaxima: input   start ] */
+wxplot2d([x*sin(x)-1/3], [x, 2.5, 3.5]);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: subsect start ]
+Raiz aproximada
+   [wxMaxima: subsect end   ] */
+
+
+/* [wxMaxima: input   start ] */
+bisec(a, b, iters, foo) :=
+if (iters = 1)
+then (b+a)/2
+elseif (foo(a) * foo((b+a)/2) < 0)
+then bisec(a, (b+a)/2, iters-1, foo)
+else bisec((b+a)/2, b, iters-1, foo)$
+
+calcIters(a, b, err) := floor(log((b-a)/err)/log(2))+1$
+
+bisec(2, 4, calcIters(2, 4, 5*10^(-50)), lambda([x], x*sin(x)-1/3)), numer;
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: section start ]
+x^2=cos(x)
+   [wxMaxima: section end   ] */
+
+
+/* [wxMaxima: input   start ] */
+wxplot2d([x^2-cos(x)], [x, -1, 1]);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: subsect start ]
+Raiz aproximada
+   [wxMaxima: subsect end   ] */
+
+
+/* [wxMaxima: input   start ] */
+bisec(0, 1, calcIters(0,1, 5*10^(-50)), lambda([x], x^2-cos(x))), numer;
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: subsect start ]
+cos(θ)
+   [wxMaxima: subsect end   ] */
+
+
+/* [wxMaxima: input   start ] */
+θ:find_root(x^2-cos(x), 0, 1);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+bisecErr (a, b, foo, err) :=
+if (abs(foo(a)-foo((b+a)/2)) < err)
+then float((b+a)/2)
+elseif (foo(a) * foo((b+a)/2) < 0)
+then bisecErr(a, (b+a)/2, foo, err)
+else bisecErr((b+a)/2, b, foo, err)$
+bisecErr(-1, 1, lambda([x], cos(θ)-x), 10^-50);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: section start ]
+Puntos Fijos
+   [wxMaxima: section end   ] */
+
+
+/* [wxMaxima: input   start ] */
+f_pf(x):= [
+    1/5*(x[2] + x[3] + 1),
+    1/5*(x[1] + x[2]^2 + x[3]),
+    1/5*(x[1] + x[2] + x[3]^2)
+]$
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: subsect start ]
+Punto fijo de modo exacto
+   [wxMaxima: subsect end   ] */
+
+
+/* [wxMaxima: subsect start ]
+Punto fijo de modo aproximado, x0 = [1, 1, 1]
+   [wxMaxima: subsect end   ] */
+
+
+/* [wxMaxima: input   start ] */
+cErr (root) :=
+sqrt(sum(root[i]^2, i, 1, length(root)))$
+
+pFijo (root, foo, err) :=
+if (cErr(foo(root) - root) < err)
+then float(root)
+else pFijo (float(foo(root)), foo, err)$
+
+pFijo ([1, 1, 1], f_pf, 10^(-10));
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: section start ]
+Newton-Raphson
+   [wxMaxima: section end   ] */
+
+
+/* [wxMaxima: input   start ] */
+newton_raphson_iters (root, foo, iters) := block (
+    while (iters > 0) do [
+        root:float(transpose(root + invert(subst(makelist(x[i]=root[i], i, 1, length(root)), jacobian(foo(x), makelist(x[i], i, 1, length(root))))).-foo(root))[1]),
+        iters:iters-1
+    ],
+    return(root)
+)$
+
+newton_raphson (root, foo, tol) := block (
+    while (cErr(foo(root)-root) > tol) do [
+        root:float(transpose(root + invert(subst(makelist(x[i]=root[i], i, 1, length(root)), jacobian(foo(x), makelist(x[i], i, 1, length(root))))).-foo(root))[1])
+    ],
+    return(root)
+)$
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+newton_raphson_iters ([1, 1, 1], f_pf, 100);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+newton_raphson([1, 1, 1], f_pf, 10^(-10));
+/* [wxMaxima: input   end   ] */
+
+
+
+/* Old versions of Maxima abort on loading files that end in a comment. */
+"Created with wxMaxima 22.04.0"$

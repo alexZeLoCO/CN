@@ -1,0 +1,135 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 22.04.0 ] */
+/* [wxMaxima: input   start ] */
+f(x):=x*%e^x;
+wxplot2d([f], [x, -5, 2]);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+/* Averiguar mínimo de la función f(x) */
+f(solve([diff(f(x), x, 1)=0], [x]));
+/* 1. Calcular derivada     ~~> diff(f(x), x, 1) */
+/* 2. Resolver para 0       ~~> solve([foo=0], [var])*/
+/* 3. Calcular f(solución)  ~~> f(sol)*/
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+/* Averiguar x / f(x) = 1 */
+find_root(f(x)=1, x, 0, 1);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+/* Averiguar x / f(x) = -1/%e^2 */
+out:find_root(f(x)=-1/%e^2, x, -4, -2); /* x_1 */
+outBis:find_root(f(x)=-1/%e^2, x, -1, 0); /* x_2 */
+f(find_root(f(x)=(-1/%e^2), x, -4, -2)); /* f(x_1) */
+f(find_root(f(x)=(-1/%e^2), x, -1, 0)); /* f(x_2) */
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+/* Función para hallar x / f(x) = z */
+W(z):=find_root(f(x)=z, x, 0, z);
+W(1);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+wxplot2d([W(z)], [x, 0, 5]);    /* No se puede hacer el plot */
+/* Discrete plot */
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+X:makelist(k, k, 0, 3, 1/100)$
+Y:makelist(W(k), k, 0, 3, 1/100);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+wxplot2d([['discrete, X, Y]], [x,0,3])$ /* Gráfica de productLog */
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+/* */
+find_root((W(p)=p^2), p, 0.5, 1);
+find_root((W(p)=log(p)),p, 2, 4);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+Z:makelist(W(k)-k^2, k, 0, 3);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+f(x):=x^2-2
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+remdef(bisec, falsi) $
+bisec[pareja]:=block(a:pareja[1], b:pareja[2],c:(a+b)/2,
+            if f(a)*f(c) < 0 then [a, c]
+            else [c, b]);
+falsi[pareja]:=block(a:pareja[1],b:pareja[2],c:(((f(b)*a)-f(a)*b)) / (f(b)-f(a)),
+            if f(a)*f(c) < 0 then [a, c]
+            else [c, b]);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+falsi[[0,2]];
+bisec[[0,2]];
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+veces(n):=if n=0 then [0,2] else (bisec[veces(n-1)]);
+vacas(n):=if n=0 then [0,2] else (falsi[vacas(n-1)]);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+veces(100), float;
+vacas(100), float;
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+veces(1000), float;
+vacas(1000), float;
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+makelist(veces(x), x, 0, 1000)$
+time(%);
+makelist(vacas(x), x, 0, 1000)$
+time(%);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+f(x):=x*exp(x)-1;
+wxplot2d([f], [x, -5, 5]);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+log(10^101) / log(2),numer;
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+vacas(36);
+/* [wxMaxima: input   end   ] */
+
+
+
+/* Old versions of Maxima abort on loading files that end in a comment. */
+"Created with wxMaxima 22.04.0"$
